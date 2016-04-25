@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Web">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="Core-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Core/Core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ComprasModel-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ComprasModel/ComprasModel">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ComprasPersistence-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ComprasPersistence/ComprasPersistence">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ComprasBusiness-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ComprasBusiness/ComprasBusiness">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="Web"/>
+        <property name="java-output-path" value="/Web/target/classes"/>
+    </wb-module>
+</project-modules>
