@@ -5,18 +5,29 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="lib/ng-tags-input/ng-tags-input.min.css" rel="stylesheet">
+        <link href="lib/ng-tags-input/ng-tags-input.bootstrap.min.css" rel="stylesheet">
         
         <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-        <script type="text/javascript" src="app.js"></script>
+         <script type="text/javascript" src="lib/ng-tags-input/ng-tags-input.min.js"></script>
         <script type="text/javascript" src="controllers/tienda.controller.js"></script>
+       <script type="text/javascript" src="compras/compras.module.js"></script>
+        <script type="text/javascript" src="compras/controllers/product.controller.js"></script>
+        <script type="text/javascript" src="compras/services/products.service.js"></script>
+         <script type="text/javascript" src="app.js"></script>
+        
         
     </head>
-    <body ng-controller="TiendaController">
-        <h1>{{titulo}}</h1>
-        <input type="text" ng-model="titulo">
-        
-        <div ng-include="'views/vista1.html'"></div>
+    <body>
+	    <span ng-controller="TiendaController">
+	    	<h1>{{titulo}}</h1>
+	        <input type="text" ng-model="titulo">
+	    </span>
+	    <div ng-controller="ProductController">
+	    	<div ng-include="compras/views/compras.views.html"></div>
+	    </div>	        
+	       
     </body>
 </html>
