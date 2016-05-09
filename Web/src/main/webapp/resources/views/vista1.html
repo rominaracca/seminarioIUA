@@ -1,1 +1,7 @@
 Hola desde vista uno
+
+<ul class="list-group">
+	<li class="list-group-item" ng-repeat="p in productos | orderBy:'descripcion'">{{p.descripcion}}
+		<em class="pull-right"> {{p.precio | currency}} </em>
+	</li>
+</ul>
