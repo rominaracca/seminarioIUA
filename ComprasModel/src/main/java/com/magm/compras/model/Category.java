@@ -41,5 +41,20 @@ public class Category implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Category: [%d] %s", getId(), getDescription());
+	}
+	
+	@Override
+	public int hashCode() {
+		return getId();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return ((Category) obj).getId() == getId();
+	}
 
 }
