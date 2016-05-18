@@ -107,7 +107,10 @@ public class Product implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idCategory")
 	public Category getCategory(){
-		return category; 
+		return category;
 	} 
 
+	public void setCategory(Category categoty) {
+		this.category = categoty;
+	}
 }
