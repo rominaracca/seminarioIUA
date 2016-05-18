@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -26,14 +27,32 @@ public class Product implements Serializable {
 
 	private static final long serialVersionUID = -2237359968314973968L;
 
-	private String description;
-
 	@Id
 	@GeneratedValue
 	private int id;
 	
-	private double price; 
+	private String description;
+	private double price;
+	private String code;
+	
+	private Category category;
+	
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public double getPrice() {
 		return price;
 	}
@@ -42,36 +61,30 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		return ((Product) obj).getId() == getId();
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public int getId() {
-		return id;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		return getId();
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	@Override
 	public String toString() {
 		return String.format("Product: [%d] %s %s", getId(), getDescription(), getPrice());
 	}
+	
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "productTags", joinColumns = @JoinColumn(name = "idProduct") )
@@ -89,5 +102,12 @@ public class Product implements Serializable {
 	public void addTag(String tag) {
 		tags.add(tag);
 	}
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idCategory")
+	public Category getCategory(){
+		return category; 
+	} 
 
 }
