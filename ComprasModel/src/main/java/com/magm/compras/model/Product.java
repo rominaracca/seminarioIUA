@@ -35,6 +35,8 @@ public class Product implements Serializable {
 	private double price;
 	private String code;
 	
+	@ManyToOne
+	@JoinColumn(name = "idCategory")
 	private Category category;
 	
 	public int getId() {
@@ -103,9 +105,6 @@ public class Product implements Serializable {
 		tags.add(tag);
 	}
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "id")
 	public Category getCategory(){
 		return category;
 	} 

@@ -2,9 +2,6 @@ package com.magm.compras.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,13 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Proxy;
-import org.hibernate.mapping.Set;
+import java.util.Set;
 
 
 @Entity
-@Proxy(lazy = false)
-@Access(value = AccessType.FIELD)
 @Table(name = "categories")
 public class Category implements Serializable{
 
@@ -29,12 +23,14 @@ public class Category implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="idCategory")
 	private int id;
 	
 	@Column
 	private String description;
 	
-	private Set products;
+	@OneToMany(mappedBy="category")
+	private Set<Product> products;
 	
 	
 	public String getDescription() {
@@ -65,12 +61,11 @@ public class Category implements Serializable{
 		return ((Category) obj).getId() == getId();
 	}
 	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-	public Set getProducts() {
+	public Set<Product> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(Set products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 
