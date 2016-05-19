@@ -1,20 +1,19 @@
 package com.magm.compras.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.mapping.Set;
 
 
 @Entity
@@ -32,9 +31,10 @@ public class Category implements Serializable{
 	@GeneratedValue
 	private int id;
 	
+	@Column
 	private String description;
 	
-	private Set<Product> products = new HashSet<Product>(0);
+	private Set products;
 	
 	
 	public String getDescription() {
@@ -65,12 +65,12 @@ public class Category implements Serializable{
 		return ((Category) obj).getId() == getId();
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categories")
-	public Set<Product> getProducts() {
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	public Set getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(Set products) {
 		this.products = products;
 	}
 

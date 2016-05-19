@@ -104,8 +104,8 @@ public class Product implements Serializable {
 	}
 	
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idCategory")
+	@ManyToOne
+	@JoinColumn(name = "id")
 	public Category getCategory(){
 		return category;
 	} 
