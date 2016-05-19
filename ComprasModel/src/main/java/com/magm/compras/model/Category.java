@@ -1,14 +1,19 @@
 package com.magm.compras.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 
@@ -28,6 +33,9 @@ public class Category implements Serializable{
 	private int id;
 	
 	private String description;
+	
+	private Set<Product> products = new HashSet<Product>(0);
+	
 	
 	public String getDescription() {
 		return description;
@@ -55,6 +63,15 @@ public class Category implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		return ((Category) obj).getId() == getId();
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categories")
+	public Set<Product> getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
 }
