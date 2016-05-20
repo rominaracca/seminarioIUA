@@ -32,7 +32,7 @@ public class CategoryDAOTest {
 				.addAnnotatedClass(Product.class)
 				.addAnnotatedClass(Category.class)
 				.setProperty("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect")
-				.setProperty("hibernate.show_sql", "true")
+				.setProperty("hibernate.show_sql", "false")
 				.setProperty("hibernate.format_sql", "true")
 				.setProperty("hibernate.hbm2ddl.auto", "update")
 				.setProperty("hibernate.enable_lazy_load_no_trans", "true")
@@ -52,7 +52,7 @@ public class CategoryDAOTest {
 	public void returnsProductsWithCategory() {
 		
 		// create the objects needed for testing
-		
+
 		Category c= new Category();
 		c.setDescription("Silla");
 		
@@ -79,12 +79,15 @@ public class CategoryDAOTest {
 		ProductDAO pDAO = new ProductDAO(sessionFactory);
 				
 		try {
+	
 			cDAO.save(c);
 			pDAO.save(p1);
 			pDAO.save(p2);
 			
-			System.out.println(cDAO.list(2).size());
-			assertEquals(cDAO.list(10).size(),2);
+			for (int i = 0; i < cDAO.list(1).size(); i++) {
+				System.out.println(cDAO.list(1).get(i).getDescription());
+			}
+			assertEquals(cDAO.list(1).size(),2);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();

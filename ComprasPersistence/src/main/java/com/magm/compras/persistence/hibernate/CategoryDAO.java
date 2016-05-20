@@ -25,11 +25,11 @@ public class CategoryDAO extends GenericDAO<Category, Integer> implements ICateg
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> list(int idCategory) throws PersistenceException {
-		// TODO Auto-generated method stub
+		
 		List<Product> products = new ArrayList<Product>();
 		try {
 			products =  getSession()
-					.createCriteria(getDomainClass())
+					.createCriteria(Product.class)
 							.add(Restrictions.eq("category.id", idCategory))
 					.list();
 		} catch (Exception e) {
