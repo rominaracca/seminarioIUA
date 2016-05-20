@@ -29,7 +29,6 @@ public class ProductDAOTest {
 	public void before() {
 		
 		// setup the session factory
-		
 		Configuration cfg = new Configuration()
 				.addAnnotatedClass(Product.class)
 				.addAnnotatedClass(Category.class)
@@ -54,34 +53,43 @@ public class ProductDAOTest {
 	public void returnsProductsWithCategory() {
 		
 		// create the objects needed for testing
-
 		Category c= new Category();
-		c.setDescription("Muebles3");
-		Product p= new Product();
-		p.setDescription("Mesa3");
-		p.setCode("PRMESA_003");
-		p.setPrice(600.50);
-		List<String> t = new ArrayList<String>();
-		t.add("Madera3");
-		t.add("Roble3");
-		p.setTags(t);
-		p.setCategory(c);
+		c.setDescription("Muebles");
+		
+		Product p1= new Product();
+		p1.setDescription("Mesa extensible");
+		p1.setCode("MESA_EX_001");
+		p1.setPrice(600.50);
+		List<String> t1 = new ArrayList<String>();
+		t1.add("Pino");
+		t1.add("Caoba");
+		p1.setTags(t1);
+		p1.setCategory(c);
 				
-		 CategoryDAO cDAO = new CategoryDAO(sessionFactory);
-		 ProductDAO pDAO = new ProductDAO(sessionFactory);
+		Product p2= new Product();
+		p2.setDescription("Mesa rectangular");
+		p2.setCode("MESA_REC_001");
+		p2.setPrice(700.50);
+		List<String> t2 = new ArrayList<String>();
+		t2.add("Cedro");
+		p2.setTags(t2);
+		p2.setCategory(c);
+
+		CategoryDAO cDAO = new CategoryDAO(sessionFactory);
+		ProductDAO pDAO = new ProductDAO(sessionFactory);
 				
 		try {
 			cDAO.save(c);
-			pDAO.save(p);
+			pDAO.save(p1);
+			pDAO.save(p2);
+			
+			assertEquals(pDAO.list("Mesa extensible").size(),1);
+			assertEquals(pDAO.listUniqueTags().size(), 3);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 		}
-		
-		assertEquals(1,1);
 	
 	}
-	
-		
 	
 	@After
 	public void after() {
