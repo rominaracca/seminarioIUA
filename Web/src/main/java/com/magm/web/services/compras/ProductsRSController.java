@@ -29,51 +29,63 @@ public class ProductsRSController {
 	private IProductService productService;
 
 	
-//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-//	public ResponseEntity<Object> list() {
-//		try {
-//			return new ResponseEntity<Object>(productService.list(), HttpStatus.OK);
-//		} catch (ServiceException e) {
-//			LOG.error(e.getMessage(), e);
-//
-//			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-
-	@RequestMapping(value = "/list/filter", method = RequestMethod.GET)
+	/**
+	 * Obtener una lista de productos:  http://localhost:8080/Web/api/v1/products
+	 * Se puede filtrar por query descrption: http://localhost:8080/Web/api/v1/products?description=Something
+	 * @param q filtro
+	 * @return JSON de lista de productos
+	 */
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Object> list(@RequestParam(value="description", defaultValue="") String q) {
 		try {
 			return new ResponseEntity<Object>(productService.list(q), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	
+	/**
+	 * Crear nuevo producto:  http://localhost:8080/Web/api/v1/products
+	 * @param product JSON para crear el producto
+	 * @return JSON del producto creado
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> save(@RequestBody Product product) {
 		try {
-			System.out.println(product);
 			return new ResponseEntity<Object>(productService.save(product), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody Product product) {
+	
+	/**
+	 * Obtener un producto segun el id: http://localhost:8080/Web/api/v1/products/1
+	 * @param id Identificador unico del producto
+	 * @return JSON del producto selecionado
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> get(@PathVariable int id) {
 		try {
-			return new ResponseEntity<Object>(productService.update(product), HttpStatus.OK);
+			Product p = productService.load(id);
+			return new ResponseEntity<Object>(p, HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (NotFoundException e) {
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new SimpleResponse(404, e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
 
-
+	
+	/**
+	 * Eliminar un producto segun el id: http://localhost:8080/Web/api/v1/products/4
+	 * @param id Identificador unico del producto
+	 * @return
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable int id) {
 		try {
@@ -83,33 +95,30 @@ public class ProductsRSController {
 			return ResponseEntity.ok().body(null);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (NotFoundException e) {
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.NOT_FOUND);
-		}
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> get(@PathVariable int id) {
-		try {
-			Product p = productService.load(id);
-			return new ResponseEntity<Object>(p, HttpStatus.OK);
-		} catch (ServiceException e) {
-			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (NotFoundException e) {
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new SimpleResponse(404, e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
 	
-	@RequestMapping(value = "/tags", method = RequestMethod.GET)
-	public ResponseEntity<Object> tags() {
+	
+	/**
+	 * Actualizar el producto segun el id: http://localhost:8080/Web/api/v1/products/4
+	 * @param id Identificador unico del producto
+	 * @param product JSON para actualizar el producto
+	 * @return JSON del producto actualizado
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> update(@PathVariable int id, @RequestBody Product product) {
 		try {
-			return new ResponseEntity<Object>(productService.listUniqueTags(), HttpStatus.OK);
+			product.setId(id);
+			return new ResponseEntity<Object>(productService.update(product), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (NotFoundException e) {
+			return new ResponseEntity<Object>(new SimpleResponse(404, e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
+	
 }
