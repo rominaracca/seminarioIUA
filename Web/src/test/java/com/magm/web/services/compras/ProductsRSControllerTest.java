@@ -33,6 +33,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.magm.compras.model.Category;
 import com.magm.compras.model.Product;
 import com.magm.web.services.Constants;
 import com.magm.web.services.TestUtil;
@@ -56,7 +57,7 @@ public class ProductsRSControllerTest {
 
 	@Test
 	public void listProducts() throws Exception {
-		mockMvc.perform(get(Constants.URL_PRODUCTS + "/list").accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get(Constants.URL_PRODUCTS).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"));
 	}
 
@@ -85,20 +86,28 @@ public class ProductsRSControllerTest {
 	public void performCicle() throws Exception {
 		Product p = new Product();
 		p.setDescription("Producto Test");
+		p.setPrice(100.50);
+		p.setCode("CODE_TEST");
 		List<String> tags = new ArrayList<String>();
 		tags.add("test 1");
 		tags.add("test 2");
 		tags.add("test 3");
 		p.setTags(tags);
-
+		Category c = new Category();
+		c.setDescription("Categoria Test");
+		p.setCategory(c);
+		
 		// Add
 		MvcResult mvcResult = mockMvc
-				.perform(post(Constants.URL_PRODUCTS + "/").contentType(MediaType.APPLICATION_JSON)
+				.perform(post(Constants.URL_PRODUCTS).contentType(MediaType.APPLICATION_JSON)
 						.content(TestUtil.convertObjectToJsonBytes(p)).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andDo(print())
 				.andExpect(content().contentType("application/json;charset=UTF-8"))
 				.andExpect(jsonPath("$.id", greaterThan(0)))
 				.andExpect(jsonPath("$.description", is(p.getDescription())))
+				.andExpect(jsonPath("$.price", is(p.getPrice())))
+				.andExpect(jsonPath("$.code", is(p.getCode())))
+				.andExpect(jsonPath("$.category.description", is(p.getCategory().getDescription())))
 				.andExpect(jsonPath("$.tags", Matchers.containsInAnyOrder(tags.get(0), tags.get(1), tags.get(2))))
 				.andExpect(jsonPath("$.tags", hasSize(tags.size()))).andReturn();
 		String content = mvcResult.getResponse().getContentAsString();
@@ -110,10 +119,13 @@ public class ProductsRSControllerTest {
 		p.getTags().add("test 4");
 		p.getTags().remove(0);
 		p.getTags().remove(0);
-		mockMvc.perform(put(Constants.URL_PRODUCTS + "/").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put(Constants.URL_PRODUCTS).contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtil.convertObjectToJsonBytes(p)).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
 				.andExpect(jsonPath("$.description", is(p.getDescription())))
+				.andExpect(jsonPath("$.price", is(p.getPrice())))
+				.andExpect(jsonPath("$.code", is(p.getCode())))
+				.andExpect(jsonPath("$.category.description", is(p.getCategory().getDescription())))
 				.andExpect(jsonPath("$.tags", Matchers.containsInAnyOrder(tags.get(0), tags.get(1))))
 				.andExpect(jsonPath("$.tags", hasSize(tags.size())));
 
