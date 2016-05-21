@@ -52,6 +52,7 @@ public class ProductsRSController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Object> save(@RequestBody Product product) {
 		try {
+			System.out.println(product);
 			return new ResponseEntity<Object>(productService.save(product), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);

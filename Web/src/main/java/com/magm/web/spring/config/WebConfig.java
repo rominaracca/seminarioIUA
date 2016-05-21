@@ -15,7 +15,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	//Habilito Cors para toda la apicacion
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping(Constants.URL_API_VERSION+"/**")  //Habilito a ese path/ y todos sus descendientes
+		registry.addMapping(Constants.URL_BASE+"/**")  //Habilito a ese path/ y todos sus descendientes
 		.allowedOrigins("*")
 		.allowedMethods("PUT", "POST", "GET", "DELETE"); 
 	}
