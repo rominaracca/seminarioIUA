@@ -1,0 +1,430 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Uber API
+  description: Modulo de compras de productos
+  version: 1.0.0
+  contact:
+    name: Nelson Rios y Romina Racca
+  license:
+    name: LGPL
+    url: http://www.gnu.org/licenses/lgpl-3.0.html
+    
+# the domain of the service
+host: localhost:8080
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /Web/api/v1
+produces:
+  - application/json
+consumes:
+  - application/json
+  
+paths:
+  /products:
+    get:
+      summary: Productos
+      description: Listado de productos.
+      operationId: list
+      tags:
+        - Producto
+      parameters:
+        - in: query
+          name: description
+          description: Filtro por descripcion
+          type: string
+      responses:
+        200:
+          description: Arreglo de productos
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Agregar un producto.
+      description: Dar de alta un producto en el sistema.
+      operationId: save
+      tags:
+        - Producto
+      parameters:
+        - in: body
+          name: product
+          description: Producto a dar de alta en el sistema
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        201:
+          description: Producto creado
+          schema:
+            $ref: '#/definitions/Product'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+      
+  /products/{id}:
+    get:
+      summary: Producto
+      description: Producto por id.
+      operationId: productById
+      tags:
+        - Producto
+      parameters:
+        - name: id
+          in: path
+          description: identificador único del producto
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Producto segun el identificador unico
+          schema:
+              $ref: '#/definitions/Product'
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Producto
+      description: Elimina un producto por id
+      operationId: deleteProductById
+      tags:
+        - Producto
+      parameters:
+        - name: id
+          in: path
+          description: identificador único del producto
+          required: true
+          type: integer
+          format: int64
+      responses:
+        204:
+          description: Producto eliminado.
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Producto
+      description: Modifica los datos de un producto
+      operationId: updateProduct
+      tags:
+        - Producto
+      parameters:
+        - name: id
+          in: path
+          description: identificador unico del producto
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: product
+          description: Datos del producto a actualizar en el sistema
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        200:
+          description: Producto actualizado
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: Tipo de Identificacion no existente
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+
+  /categories:
+    get:
+      summary: Categorias
+      description: Listado de categorias.
+      operationId: listC
+      tags:
+        - Categoría
+      responses:
+        200:
+          description: Arreglo de categorias
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Category'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Agregar una categoría.
+      description: Dar de alta una categoría en el sistema.
+      operationId: saveC
+      tags:
+        - Categoría
+      parameters:
+        - in: body
+          name: category
+          description: Categoría a dar de alta en el sistema
+          required: true
+          schema:
+            $ref: '#/definitions/Category'
+      responses:
+        201:
+          description: Categoría creada
+          schema:
+            $ref: '#/definitions/Category'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+      
+  /categories/{id}:
+    get:
+      summary: Categoría
+      description: Categoría por id.
+      operationId: categoryById
+      tags:
+        - Categoría
+      parameters:
+        - name: id
+          in: path
+          description: identificador único de la categoría
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Categoría segun el identificador unico
+          schema:
+              $ref: '#/definitions/Category'
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Categoría
+      description: Elimina una categoría por id
+      operationId: deleteCategoryById
+      tags:
+        - Categoría
+      parameters:
+        - name: id
+          in: path
+          description: identificador único de la categoría
+          required: true
+          type: integer
+          format: int64
+      responses:
+        204:
+          description: Categoría eliminada.
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Categoría
+      description: Modifica los datos de una categoría
+      operationId: updateCategory
+      tags:
+        - Categoría
+      parameters:
+        - name: id
+          in: path
+          description: identificador unico de la categoría
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: category
+          description: Datos de la categoría a actualizar en el sistema
+          required: true
+          schema:
+            $ref: '#/definitions/Category'
+      responses:
+        200:
+          description: Categoría actualizada
+          schema:
+            $ref: '#/definitions/Category'
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+
+  /categories/{id}/products:
+    get:
+      summary: Productos
+      description: Listado de productos asociados a una categoria
+      operationId: categoryByIdProduct
+      tags:
+        - Producto
+        - Categoría
+      parameters:
+        - name: id
+          in: path
+          description: identificador único de la categoría
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Productos de una categoria segun el id
+          schema:
+              $ref: '#/definitions/Product'
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+            
+
+  /tags:
+    get:
+      summary: Tags
+      description: Listado de tags.
+      operationId: listTags
+      tags:
+        - Tag
+      responses:
+        200:
+          description: Listado de tags
+          schema:
+            type: array
+            items:
+              type: string
+        404:
+          description: Recurso no encontrado
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  
+  Product:
+    type: object
+    required:
+      - description
+      - price
+      - code
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Identificador unico del producto
+      description:
+        type: string
+        description: Descripción del producto.
+      price:
+        type: number
+        format: doubl
+        description: Precion del producto
+      code:
+        type: string
+        description: Código del producto
+      tags:
+        type: array
+        items:
+          type: string
+      category:
+        $ref: '#/definitions/Category' 
+        
+  Category:
+    type: object
+    required:
+      - description
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Identificador unico de categoría
+      description:
+        type: string
+        description: Descripción de la categoría
+ 
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      
