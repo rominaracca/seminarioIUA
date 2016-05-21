@@ -27,26 +27,42 @@ public class CategoriesRSController {
 	@Autowired
 	private ICategoryService categoryService;
 	
+	/**
+	 * Obtener una lista de categorías:  http://localhost:8080/Web/api/v1/categories
+	 * Se puede filtrar por query description: http://localhost:8080/Web/api/v1/products?description=foo
+	 * @param q filtro
+	 * @return JSON de lista de categories
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Object> list(@RequestParam(value="description", defaultValue="") String q) {
 		try {
 			return new ResponseEntity<Object>(categoryService.list(q), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
+	/**
+	 * Obtener una lista de productos por categoría:  http://localhost:8080/Web/api/v1/categories/{id}/products
+	 * @param q filtro
+	 * @return JSON de lista de productos
+	 */
 	@RequestMapping(value = "/{idCategory}/products", method = RequestMethod.GET)
 	public ResponseEntity<Object> list(@PathVariable int idCategory) {
 		try {
 			return new ResponseEntity<Object>(categoryService.listProducts(idCategory), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	/**
+	 * Crear nueva categoria:  http://localhost:8080/Web/api/v1/categories
+	 * @param product JSON para crear la categoría
+	 * @return JSON de la categoría creada creado
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> save(@RequestBody Category Category) {
 		try {
@@ -54,23 +70,34 @@ public class CategoriesRSController {
 			return new ResponseEntity<Object>(categoryService.save(Category), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody Category Category) {
+	/**
+	 * Actualizar la categoria segun el id: http://localhost:8080/Web/api/v1/categories/{id}
+	 * @param id Identificador unico de la categoria
+	 * @param product JSON para actualizar la categoria
+	 * @return JSON de la categoria actualizada
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> update(@PathVariable int id,@RequestBody Category category) {
 		try {
-			return new ResponseEntity<Object>(categoryService.update(Category), HttpStatus.OK);
+			category.setId(id);
+			return new ResponseEntity<Object>(categoryService.update(category), HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (NotFoundException e) {
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new SimpleResponse(404, e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
 
-
+	/**
+	 * Eliminar una categoria segun el id: http://localhost:8080/Web/api/v1/categories/{id}
+	 * @param id Identificador unico de la categoria
+	 * @return
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable int id) {
 		try {
@@ -80,12 +107,17 @@ public class CategoriesRSController {
 			return ResponseEntity.ok().body(null);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (NotFoundException e) {
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new SimpleResponse(404, e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
 
+	/**
+	 * Obtener una categoria segun el id: http://localhost:8080/Web/api/v1/categories/{id}
+	 * @param id Identificador unico de la categoria
+	 * @return JSON de la categoria selecionada
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> get(@PathVariable int id) {
 		try {
@@ -93,9 +125,9 @@ public class CategoriesRSController {
 			return new ResponseEntity<Object>(c, HttpStatus.OK);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (NotFoundException e) {
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new SimpleResponse(404, e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
 	

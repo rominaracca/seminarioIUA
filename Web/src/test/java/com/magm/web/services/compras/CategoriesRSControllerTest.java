@@ -66,9 +66,8 @@ public class CategoriesRSControllerTest {
 		int id = TestUtil.getIntValueFromJson(content, "id");
 
 		// Update
-		c.setId(id);
 		c.setDescription("Producto Test updated");
-		mockMvc.perform(put(Constants.URL_CATEGORIES).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put(Constants.URL_CATEGORIES + "/" + id).contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtil.convertObjectToJsonBytes(c)).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
 				.andExpect(jsonPath("$.description", is(c.getDescription())));
@@ -108,8 +107,7 @@ public class CategoriesRSControllerTest {
 	@Test
 	public void updateCategoryNotFound() throws Exception {
 		Category c = new Category();
-		c.setId(-999);
-		mockMvc.perform(put(Constants.URL_CATEGORIES + "/").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put(Constants.URL_CATEGORIES + "/-999").contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtil.convertObjectToJsonBytes(c)).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound()).andExpect(content().contentType("application/json;charset=UTF-8"));
 	}
