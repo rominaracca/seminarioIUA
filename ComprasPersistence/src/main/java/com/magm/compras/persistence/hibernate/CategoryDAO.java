@@ -25,7 +25,7 @@ public class CategoryDAO extends GenericDAO<Category, Integer> implements ICateg
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Product> list(int idCategory) throws PersistenceException {
+	public List<Product> listProducts(int idCategory) throws PersistenceException {
 		
 		List<Product> products = new ArrayList<Product>();
 		try {
@@ -42,5 +42,21 @@ public class CategoryDAO extends GenericDAO<Category, Integer> implements ICateg
 			closeSession();
 		}
 		return products;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Category> list(String part) throws PersistenceException {
+		List<Category> l = null;
+		try {
+			l = getSession().createCriteria(getDomainClass()).add(Restrictions.like("description", "%" + part + "%"))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			throw new PersistenceException(e.getMessage(), e);
+		} finally {
+			closeSession();
+		}
+		return l;
 	}
 }

@@ -84,10 +84,10 @@ public class CategoryDAOTest {
 			pDAO.save(p1);
 			pDAO.save(p2);
 			
-			for (int i = 0; i < cDAO.list(1).size(); i++) {
-				System.out.println(cDAO.list(1).get(i).getDescription());
+			for (int i = 0; i < cDAO.listProducts(1).size(); i++) {
+				System.out.println(cDAO.listProducts(1).get(i).getDescription());
 			}
-			assertEquals(cDAO.list(1).size(),2);
+			assertEquals(cDAO.listProducts(1).size(),2);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();

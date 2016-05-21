@@ -1,6 +1,7 @@
 package com.magm.compras.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Proxy;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories")	
+@Proxy(lazy=false)
 public class Category implements Serializable{
 
 	/**
