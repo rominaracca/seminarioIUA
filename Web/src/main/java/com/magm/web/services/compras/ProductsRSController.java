@@ -29,19 +29,19 @@ public class ProductsRSController {
 	private IProductService productService;
 
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ResponseEntity<Object> list() {
-		try {
-			return new ResponseEntity<Object>(productService.list(), HttpStatus.OK);
-		} catch (ServiceException e) {
-			LOG.error(e.getMessage(), e);
-
-			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+//	public ResponseEntity<Object> list() {
+//		try {
+//			return new ResponseEntity<Object>(productService.list(), HttpStatus.OK);
+//		} catch (ServiceException e) {
+//			LOG.error(e.getMessage(), e);
+//
+//			return new ResponseEntity<Object>(new SimpleResponse(-1, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 
 	@RequestMapping(value = "/list/filter", method = RequestMethod.GET)
-	public ResponseEntity<Object> list(@RequestParam("q") String q) {
+	public ResponseEntity<Object> list(@RequestParam(value="description", defaultValue="") String q) {
 		try {
 			return new ResponseEntity<Object>(productService.list(q), HttpStatus.OK);
 		} catch (ServiceException e) {
@@ -50,7 +50,7 @@ public class ProductsRSController {
 		}
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> save(@RequestBody Product product) {
 		try {
 			System.out.println(product);
@@ -61,7 +61,7 @@ public class ProductsRSController {
 		}
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Object> update(@RequestBody Product product) {
 		try {
 			return new ResponseEntity<Object>(productService.update(product), HttpStatus.OK);
