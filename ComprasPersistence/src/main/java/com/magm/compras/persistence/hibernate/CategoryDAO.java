@@ -3,6 +3,7 @@ package com.magm.compras.persistence.hibernate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ public class CategoryDAO extends GenericDAO<Category, Integer> implements ICateg
 			products =  getSession()
 					.createCriteria(Product.class)
 							.add(Restrictions.eq("category.id", idCategory))
+							.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 					.list();
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
