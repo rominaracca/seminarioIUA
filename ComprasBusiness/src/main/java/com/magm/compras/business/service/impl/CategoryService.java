@@ -23,9 +23,19 @@ public class CategoryService extends GenericService<Category, Integer> implement
 	}
 
 	@Override
-	public List<Product> list(int idCategory) throws ServiceException {
+	public List<Product> listProducts(int idCategory) throws ServiceException {
 		try {
-			return categoryDAO.list(idCategory);
+			return categoryDAO.listProducts(idCategory);
+		} catch (PersistenceException e) {
+			LOG.error(e.getMessage(), e);
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public List<Category> list(String part) throws ServiceException {
+		try {
+			return categoryDAO.list(part);
 		} catch (PersistenceException e) {
 			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e.getMessage(), e);

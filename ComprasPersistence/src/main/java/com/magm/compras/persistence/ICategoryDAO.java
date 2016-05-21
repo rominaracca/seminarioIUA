@@ -8,6 +8,8 @@ import com.magm.core.persistence.dao.IGenericDAO;
 import com.magm.core.persistence.exception.PersistenceException;
 
 public interface ICategoryDAO extends IGenericDAO<Category, Integer> {
-	public List<Product> list(int idCategory) throws PersistenceException;
+	
+	public List<Product> listProducts(int idCategory) throws PersistenceException;
+	public List<Category> list(String part) throws PersistenceException;
 
 }

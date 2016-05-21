@@ -9,6 +9,7 @@ import com.magm.core.bussiness.service.exception.ServiceException;
 
 public interface ICategoryService extends IGenericService<Category, Integer>{
 
-	public List<Product> list(int idCategory) throws ServiceException;
-	
+	public List<Product> listProducts(int idCategory) throws ServiceException;
+	public List<Category> list(String part) throws ServiceException;
+
 }
