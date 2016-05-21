@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 
@@ -29,6 +31,7 @@ public class Category implements Serializable{
 	@Column
 	private String description;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="category")
 	private Set<Product> products;
 	

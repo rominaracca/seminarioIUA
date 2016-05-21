@@ -5,6 +5,10 @@
 
 	<groupId>com.magm.compras.model</groupId>
 	<artifactId>ComprasModel</artifactId>
+		<properties>
+	
+			<jackson.version>2.5.5</jackson.version>
+		</properties>
 
 	<packaging>jar</packaging>
 	<parent>
@@ -26,6 +30,20 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
+			<dependencies>
+			<!-- JSON Mapper -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+					</dependencies>
 </project>
