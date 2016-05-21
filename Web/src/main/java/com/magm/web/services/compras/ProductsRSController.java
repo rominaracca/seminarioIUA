@@ -19,6 +19,8 @@ import com.magm.core.bussiness.service.exception.ServiceException;
 import com.magm.core.exception.NotFoundException;
 import com.magm.web.services.Constants;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 //@CrossOrigin(origins={"*"}, methods={"POST"}) Es para todo el controlador
 @RestController
 @RequestMapping(value = Constants.URL_PRODUCTS)
@@ -28,6 +30,7 @@ public class ProductsRSController {
 	@Autowired
 	private IProductService productService;
 
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ResponseEntity<Object> list() {
 		try {
