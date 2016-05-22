@@ -80,7 +80,7 @@ angular.module('seminario').controller('ProductController', ['$scope', 'products
 	};
 
 	$scope.eliminar = function(id){
-		productsService.delete(id)
+		productsService.remove(id)
 		then(
 				function(resp){
 

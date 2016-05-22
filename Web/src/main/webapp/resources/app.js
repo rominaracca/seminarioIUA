@@ -1,1 +1,1 @@
-angular.module('seminario',[]);
+angular.module('seminario',['ui.router', 'ngMaterial']);
