@@ -15,6 +15,9 @@ angular
       })
       .state('main.product', {
          url: '/product',
+				 params:{
+					 category: null
+				 },
          templateUrl: 'app/views/products.views.html',
 		    controller: 'ProductCtrl',
 		    controllerAs: 'vm'

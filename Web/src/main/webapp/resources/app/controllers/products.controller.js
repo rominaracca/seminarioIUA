@@ -4,9 +4,11 @@
 		.module('seminario')
 		.controller('ProductCtrl', productsController);
 
-	productsController.$inject = ['productsService'];
+	productsController.$inject = ['productsService', '$stateParams'];
 
-	function productsController(productsService) {
+	function productsController(productsService, params) {
+
+		console.log(params);
 		var vm = this;
 		vm.products = [];
 		vm.productTmp = {};

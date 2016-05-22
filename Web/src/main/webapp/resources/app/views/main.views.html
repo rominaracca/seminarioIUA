@@ -10,19 +10,19 @@
 <div layout="row">
 
 
-	<!-- Panel izquierdo -->	
+	<!-- Panel izquierdo -->
 	<div flex="15">
-	
+
 		<md-list>
 	  		<md-list-item class="md-2-line" ng-repeat="category in vm.categories">
 			    <div class="md-list-item-text">
-			      <a ui-sref="main.product({categoty:category.id})"> <!-- Paso el id de la categoria -->
+			      <a ui-sref="main.product({category:category.id})"> <!-- Paso el id de la categoria -->
 			      	<h3>{{category.description}}</h3>
 			      </a>
 			    </div>
 	  		</md-list-item>
 		</md-list>
-	
+
 	</div>
 
 	<!-- Panel central - Productos -->
