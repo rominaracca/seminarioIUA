@@ -9,7 +9,6 @@
     "jquery": "2.2.0",
   	"angular": "^1.5.3",
     "angular-ui-router": "^0.2.18",
-    "angular-material": "^1.0.7",
-    "ng-tags-input": "3.0.0"
+    "angular-material": "^1.0.7"
   }
 }

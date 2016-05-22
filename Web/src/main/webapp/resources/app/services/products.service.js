@@ -1,5 +1,4 @@
 angular.module('compras')
-.constant('URL_API_ROOT', '../api/v1/products')
 .factory('productsService', [ '$http', 'URL_API_ROOT', function($http, URL_API_ROOT){
 	
 	return {
