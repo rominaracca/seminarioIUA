@@ -9,7 +9,9 @@ angular
     $stateProvider
       .state('main', {
         url: '/main',
-        templateUrl: 'app/views/main.html'
+        templateUrl: 'app/views/main.views.html',
+        controller: 'CategoryCtrl',
+    	controllerAs: 'vm'
       })
       // .state('main.product', {
       //   url: '/product',
