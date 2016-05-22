@@ -8,7 +8,7 @@
     CategoryCtrl.$inject = ['categoriesService'];
 
     /* @ngInject */
-    function CategoryCtrl() {
+    function CategoryCtrl(categoriesService) {
         var vm = this;
 
        // vm.noti_pendientes = null;
@@ -19,7 +19,7 @@
 
         function activate() {
 
-        	vm.categoriesService.list()
+        	categoriesService.list()
         	.then(
         			function(resp){
         				console.log(resp.data);

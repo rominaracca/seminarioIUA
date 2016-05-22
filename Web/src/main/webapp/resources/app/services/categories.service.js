@@ -4,10 +4,10 @@
     angular
         .module('seminario')
         .factory('categoriesService', categoriesService);
-
-    factory.$inject = ['$http', 'URL_API_CATEGORY'];
     
-    function categoriesService() { 
+    categoriesService.$inject = ['$http', 'URL_API_CATEGORY'];
+    
+    function categoriesService($http, URL_API_CATEGORY) { 
     	return {
     		
     		list: function(){
