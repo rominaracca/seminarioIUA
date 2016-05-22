@@ -1,19 +1,15 @@
 {
   "name": "Magm",
   "version": "0.0.1-SNAPSHOT",
+  "authors": [
+  	"Nelson Rios",
+    "Romina Racca"
+  ],
   "dependencies": {
-    "bootstrap": "3.3.6",
     "jquery": "2.2.0",
-    "angular": "1.5.0",
-    "angular-route": "1.5.0",
-    "angular-animate": "1.5.0",
-    "angular-sanitize": "1.5.0",
-    "angular-resource": "1.5.0",
-    "angular-touch": "1.5.0",
-    "angular-ui-grid": "3.1.1",
+  	"angular": "^1.5.3",
+    "angular-ui-router": "^0.2.18",
+    "angular-material": "^1.0.7",
     "ng-tags-input": "3.0.0"
-  },
-  "resolutions": {
-    "angular": ">=1.2.16 1.4.x"
   }
 }
