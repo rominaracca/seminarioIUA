@@ -12,7 +12,7 @@
     function CategoryCtrl(categoriesService, $log) {
         var vm = this;
 
-        vm.categories = null;
+        vm.categories = [];
         //vm.seleccionarTarea = seleccionarTarea;
 
         activate();
