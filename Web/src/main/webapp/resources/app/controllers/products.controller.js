@@ -2,11 +2,11 @@
 
 	angular
 		.module('seminario')
-		.controller('ProductsCtrl', productsController);
+		.controller('ProductCtrl', productsController);
 
-	productsController.$inject = ['productsService', '$log'];
+	productsController.$inject = ['productsService'];
 
-	function productsController(productsService, log) {
+	function productsController(productsService) {
 		var vm = this;
 		vm.products = [];
 		vm.productTmp = {};
@@ -24,11 +24,11 @@
 			productsService.list()
 			.then(
 				function(resp){
-					log.log(resp);
+					console.log(resp);
 					vm.products = resp.data;
 				},
 				function(respErr){
-					log.log(respErr);
+					console.log(respErr);
 					//TODO toast msg
 				}
 			);
@@ -38,11 +38,11 @@
 			productsService.remove(id)
 				.then(
 					function(resp){
-						log.log(resp);
+						console.log(resp);
 						// TODO: remove item from array
 					},
 					function(respErr){
-						log.log(respErr);
+						console.log(respErr);
 						// TODO: show toast
 					}
 				);
@@ -52,11 +52,11 @@
 			productsService.update(vm.productTmp)
 				.then(
 					function(resp){
-						log.log(resp);
+						console.log(resp);
 						// TODO: update in array
 					},
 					function(respErr){
-						log.log(respErr);
+						console.log(respErr);
 					}
 				);
 		}
@@ -65,11 +65,11 @@
 			productsService.add(vm.productTmp)
 				.then(
 					function(resp){
-						log.log(resp);
+						console.log(resp);
 						// TODO: agregar al arreglo
 					},
 					function(respErr){
-						log.log(respErr);
+						console.log(respErr);
 					}
 				);
 		}
@@ -78,11 +78,11 @@
 			productsService.search($scope.opt.searchText)
 				.then(
 					function(resp){
-						log.log(resp);
+						console.log(resp);
 						vm.products = resp.data;
 					},
 					function(respErr){
-						log.log(respErr);
+						console.log(respErr);
 						// TODO: toast
 					}
 				);

@@ -1,24 +1,43 @@
-angular.module('seminario')
-.factory('productsService', [ '$http', 'URL_API_ROOT', function($http, URL_API_ROOT){
+(function() {
+    angular
+        .module('seminario')
+        .factory('productsService', productsService);
 
-	return {
+    productsService.$inject = ['$http', 'URL_API_PRODUCT'];
 
-		list: function(){
-			return $http.get(URL_API_ROOT);
-		},
-		search: function(q){
-			return $http.get(URL_API_ROOT + '?description='+q);
-		},
-		add:  function(product){
-			return $http.post(URL_API_ROOT + '/', product);
-		},
-		update: function(product){
-			return $http.put(URL_API_ROOT + '/' + id, product);
-		},
-		remove: function(id){
-			return $http.delete(URL_API_ROOT + '/' + id);
-		}
-	};
+    function productsService(http, URL_API_PRODUCT) {
 
+			var factory = {
+				remove: remove,
+				update: update,
+				create: add,
+				list: list,
+				search: search
+			};
 
-}])
+    	return factory;
+
+			////////////////////////////////
+
+  		function list(){
+				console.log("heeey");
+  			return http.get(URL_API_PRODUCT);
+  		}
+
+			function search(query){
+				return $http.get(URL_API_PRODUCT + '?description='+query);
+			}
+
+			function add(product){
+				return $http.post(URL_API_PRODUCT + '/', product);
+			}
+
+		 	function update(product){
+				return $http.put(URL_API_PRODUCT + '/' + id, product);
+			}
+
+		 	function remove(id){
+				return $http.delete(URL_API_PRODUCT + '/' + id);
+			}
+  	}
+})();

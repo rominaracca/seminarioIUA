@@ -12,17 +12,12 @@ angular
         templateUrl: 'app/views/main.views.html',
         controller: 'CategoryCtrl',
     		controllerAs: 'vm'
-				// views: {
-				// 	"product":{
-	      //    templateUrl: 'app/views/products.views.html',
-	      //    controller: 'ProductCtrl',
-	      //    controllerAs: 'vm'
-				// 	}
-				// }
       })
       .state('main.product', {
          url: '/product',
-         templateUrl: 'app/views/products.views.html'
+         templateUrl: 'app/views/products.views.html',
+		    controller: 'ProductCtrl',
+		    controllerAs: 'vm'
       });
 
   });
