@@ -13,11 +13,11 @@ angular
         controller: 'CategoryCtrl',
     	controllerAs: 'vm'
       })
-      // .state('main.product', {
-      //   url: '/product',
-      //   templateUrl: '../app/views/products.views.html',
-      //   controller: 'ProductCtrl',
-      //   controllerAs: 'vm'
-      // })
+      .state('main.product', {
+         url: '/product',
+         templateUrl: 'app/views/products.views.html',
+         controller: 'ProductCtrl',
+         controllerAs: 'vm'
+      })
 
   });
