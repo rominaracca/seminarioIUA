@@ -1,4 +1,10 @@
-<div>zona de busqueda</div>
+
+ <div layout="row" layout-align="center center" flex="100">
+ 	<md-input-container layout="row" layout-align="center center" md-no-float class="md-icon-float md-icon-right mara-search-input">
+    	<input ng-model="tod.search" type="text" placeholder="Buscar documentos" style="color: white">
+        <md-icon class="material-icons" aria-label="Buscar"> search </md-icon>
+    </md-input-container>
+ </div>
 
 <!-- Contenido de pagina -->
 <div layout="row">
@@ -10,7 +16,7 @@
 		<md-list>
 	  		<md-list-item class="md-2-line" ng-repeat="category in vm.categories">
 			    <div class="md-list-item-text">
-			      <a ui-sref="main.product">
+			      <a ui-sref="main.product(categoty:category.id)"> <!-- Paso el id de la categoria -->
 			      	<h3>{{category.description}}</h3>
 			      </a>
 			    </div>
