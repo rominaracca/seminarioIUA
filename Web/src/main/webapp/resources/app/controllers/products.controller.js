@@ -1,94 +1,101 @@
-angular.module('seminario').controller('ProductController', ['$scope', 'productsService', '$log', function($scope, productsService, $log){
+(function() {
 
-	$scope.productos = [];
+	angular
+		.module('seminario')
+		.controller('ProductsCtrl', productsController);
 
-	$scope.opt = {editando:false, searchText: null};
-	$socpe.tituloForm = function(){
-		return $scope.opt.editando ? 'Editando producto' : 'Nuevo producto';
-	};
+	productsController.$inject = ['productsService', '$log'];
 
-	$scope.product = {};
+	function productsController(productsService, log) {
+		var vm = this;
+		vm.products = [];
+		vm.productTmp = {};
+		vm.searchText = "";
+		vm.removeProduct = removeProduct;
+		vm.editProduct = editProduct;
+		vm.addProduct = addProduct;
+		vm.searchProducts = searchProducts;
 
-	productsService.list()
-	.then(
-			function(resp){
-				$log.log(resp);
-				$scope.productos = resp.data;
-			},
-			function(respErr){
-				$log.log(respErr);
-			}
-	);
+		activate();
 
+		/////////////////////////////////////
 
-	$scope.refreshList = function(){
-	productsService.search($scope.opt.searchText)
-	.then(
-			function(resp){
-				$log.log(resp);
-				$scope.productos = resp.data;
-			},
-			function(respErr){
-				$log.log(respErr);
-			}
-	);
-	};
-	$scope.refreshList();
+		function activate() {
+			productsService.list()
+			.then(
+				function(resp){
+					log.log(resp);
+					vm.products = resp.data;
+				},
+				function(respErr){
+					log.log(respErr);
+					//TODO toast msg
+				}
+			);
+		}
 
-	$scope.guardar = function(){
-		if($scope.opt.editando){
-			productsService.update($scope.product)
-			then(
+		function removeProduct(id) {
+			productsService.remove(id)
+				.then(
 					function(resp){
-						$log.log(resp);
-						$scope.productos.push(resp.data);
-						$scope.cancelar();
+						log.log(resp);
+						// TODO: remove item from array
 					},
 					function(respErr){
-						$log.log(respErr);
-					}
-				);
-		}else{
-			productsService.add($scope.product)
-			then(
-					function(resp){
-						$log.log(resp);
-						$scope.productos.push(resp.data);
-						$scope.cancelar();
-					},
-					function(respErr){
-						$log.log(respErr);
+						log.log(respErr);
+						// TODO: show toast
 					}
 				);
 		}
-	};
 
-	$scope.cancelar = function(){
-		$scope.product = {};
-		$scope.opt.editando = false;
-	};
+		function editProduct() {
+			productsService.update(vm.productTmp)
+				.then(
+					function(resp){
+						log.log(resp);
+						// TODO: update in array
+					},
+					function(respErr){
+						log.log(respErr);
+					}
+				);
+		}
 
-	$scope.editar = function(id){
-		$scope.products.forEach(function(val, idx){
-			if(val.id === id){
-				$scope.product = angular.copy($scope.productos[idx]);
-				return false;
-			}
-		})
-		//$scope.product = $scope.productos[index]
-		$scope.opt.editando = true;
-	};
+		function addProduct() {
+			productsService.add(vm.productTmp)
+				.then(
+					function(resp){
+						log.log(resp);
+						// TODO: agregar al arreglo
+					},
+					function(respErr){
+						log.log(respErr);
+					}
+				);
+		}
 
-	$scope.eliminar = function(id){
-		productsService.remove(id)
-		then(
-				function(resp){
-
-				},
-				function(respErr){
-					$log.log(respErr);
-				}
-			);
+		function searchProducts(query) {
+			productsService.search($scope.opt.searchText)
+				.then(
+					function(resp){
+						log.log(resp);
+						vm.products = resp.data;
+					},
+					function(respErr){
+						log.log(respErr);
+						// TODO: toast
+					}
+				);
+		}
 	}
 
-}]);
+	function findInArrayProducts(id){
+		vm.products.forEach(function(val, idx){
+			if(val.id === id){
+				// $scope.product = angular.copy($scope.productos[idx]);
+				// return false;
+			}
+		});
+	}
+
+}());

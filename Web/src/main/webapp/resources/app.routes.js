@@ -3,7 +3,7 @@ angular
 	.config(function ($stateProvider, $urlRouterProvider) {
 
     // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise("/main");
+    $urlRouterProvider.otherwise("/main.product");
 
     // Set up the states
     $stateProvider
@@ -11,13 +11,18 @@ angular
         url: '/main',
         templateUrl: 'app/views/main.views.html',
         controller: 'CategoryCtrl',
-    	controllerAs: 'vm'
+    		controllerAs: 'vm'
+				// views: {
+				// 	"product":{
+	      //    templateUrl: 'app/views/products.views.html',
+	      //    controller: 'ProductCtrl',
+	      //    controllerAs: 'vm'
+				// 	}
+				// }
       })
       .state('main.product', {
          url: '/product',
-         templateUrl: 'app/views/products.views.html',
-         controller: 'ProductCtrl',
-         controllerAs: 'vm'
-      })
+         templateUrl: 'app/views/products.views.html'
+      });
 
   });
