@@ -1,8 +1,8 @@
-angular.module('compras')
+angular.module('seminario')
 .factory('productsService', [ '$http', 'URL_API_ROOT', function($http, URL_API_ROOT){
-	
+
 	return {
-		
+
 		list: function(){
 			return $http.get(URL_API_ROOT);
 		},
@@ -19,6 +19,6 @@ angular.module('compras')
 			return $http.delete(URL_API_ROOT + '/' + id);
 		}
 	};
-	
-	
+
+
 }])

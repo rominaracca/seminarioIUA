@@ -1,14 +1,14 @@
-angular.module('compras').controller('ProductController', ['$scope', 'productsService', '$log', function($scope, productsService, $log){
-	
+angular.module('seminario').controller('ProductController', ['$scope', 'productsService', '$log', function($scope, productsService, $log){
+
 	$scope.productos = [];
-	
+
 	$scope.opt = {editando:false, searchText: null};
 	$socpe.tituloForm = function(){
 		return $scope.opt.editando ? 'Editando producto' : 'Nuevo producto';
 	};
-	
+
 	$scope.product = {};
-	
+
 	productsService.list()
 	.then(
 			function(resp){
@@ -19,8 +19,8 @@ angular.module('compras').controller('ProductController', ['$scope', 'productsSe
 				$log.log(respErr);
 			}
 	);
-	
-	
+
+
 	$scope.refreshList = function(){
 	productsService.search($scope.opt.searchText)
 	.then(
@@ -34,7 +34,7 @@ angular.module('compras').controller('ProductController', ['$scope', 'productsSe
 	);
 	};
 	$scope.refreshList();
-	
+
 	$scope.guardar = function(){
 		if($scope.opt.editando){
 			productsService.update($scope.product)
@@ -62,12 +62,12 @@ angular.module('compras').controller('ProductController', ['$scope', 'productsSe
 				);
 		}
 	};
-	
+
 	$scope.cancelar = function(){
 		$scope.product = {};
 		$scope.opt.editando = false;
 	};
-	
+
 	$scope.editar = function(id){
 		$scope.products.forEach(function(val, idx){
 			if(val.id === id){
@@ -78,17 +78,17 @@ angular.module('compras').controller('ProductController', ['$scope', 'productsSe
 		//$scope.product = $scope.productos[index]
 		$scope.opt.editando = true;
 	};
-	
+
 	$scope.eliminar = function(id){
 		productsService.delete(id)
 		then(
 				function(resp){
-					
+
 				},
 				function(respErr){
 					$log.log(respErr);
 				}
 			);
 	}
-	
+
 }]);
