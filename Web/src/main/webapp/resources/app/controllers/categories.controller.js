@@ -7,18 +7,18 @@
 
     CategoryCtrl.$inject = ['categoriesService', '$log', '$state', '$mdDialog'];
 
-    
+
     /* @ngInject */
     function CategoryCtrl(categoriesService, $log, state, $mdDialog) {
         var vm = this;
 
         vm.categories = [];
         vm.searchText = "";
-        
+
         vm.searchProducts = searchProducts;
         vm.adminCategory = adminCategory;
-        
-        
+
+
         activate();
 
         function activate() {
@@ -39,26 +39,29 @@
         function searchProducts(query) {
         	state.go('main.product', {query: query});
 		};
-        
-		
+
+
 		dialogController.$inject = ['$mdDialog', 'categoriesService'];
 		function dialogController ($mdDialog, categoriesService){
 			 var vm = this;
-			
+
 			 vm.categories = [];
 			 vm.newcategory = "";
-			 
+
 			 vm.cancelDialog = function(){
 		    	  $mdDialog.cancel();
 			 };
-			 
+
 			 vm.saveUpdateCategory = function(value){
 				 console.log(value);
 			 };
-			 
+
 			 vm.saveNewCategory = function(){
-				 //console.log(vm.newCategory);
-				 var c = "{description: "+vm.newCategory+"}";
+				 console.log(vm.newCategory);
+				//  var c = "{description: "+vm.newCategory+"}";
+        var c = {
+          description: vm.newCategory
+        }
 				 console.log(c);
 				 categoriesService.add(c);
 				 /*
@@ -68,11 +71,11 @@
 				 			},
 				 			function(respErr){
 				 				$log.log(respErr);
-				 			}	
+				 			}
 			 			);
-			 		*/	
+			 		*/
 			 }
-			 
+
 			 categoriesService.list()
 	        	.then(
 	        			function(resp){
@@ -84,10 +87,10 @@
 	        				$log.log(respErr);
 	        			}
 	        	);
-			 
+
 	   };
-		
-		
+
+
         function adminCategory(ev){
         	$mdDialog.show({
                  controller: dialogController,
@@ -100,10 +103,9 @@
                   console.log(answer);
                 });
         };
-        
-        
-        
-        
+
+
+
+
     }
 })();
-
