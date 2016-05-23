@@ -15,9 +15,12 @@
 	<!-- Panel izquierdo -->
 	<div flex="15">
 
+		<div layout="row" layout-align="center center">
+			<md-button class="md-raised md-primary" ng-click="vm.adminCategory($event)">Administrar categoria</md-button>
+		</div>
 		<md-list>
 			<md-list-item class="md-list-item-category">
-			      <a ui-sref="main.product" class="a-category"> <!-- Paso el id de la categoria -->
+			      <a ui-sref="main.product({category:null, query:null})" class="a-category">
 			      	<h3 class="text-category">Todos los productos</h3>
 			      </a>
 	  		</md-list-item>

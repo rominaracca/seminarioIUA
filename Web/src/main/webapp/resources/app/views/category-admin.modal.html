@@ -1,0 +1,32 @@
+<md-dialog aria-label="Administrar categoria" ng-cloak>
+ 	<form>
+   
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Administrar categoria</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancelDialog()">
+          <md-icon class="material-icons" aria-label="Cerrar" >close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+   
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      
+      Contenido para editra y eliminar y crear una categoria
+      
+      </div>
+       </md-dialog-content>
+    <md-dialog-actions layout="row">
+    
+      <md-button ng-click="vm.cancelDialog()">
+       Cancelar
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;">
+        Aceptar
+      </md-button>
+    </md-dialog-actions>
+   
+    </form>
+</md-dialog>
