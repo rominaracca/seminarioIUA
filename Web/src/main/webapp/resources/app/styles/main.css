@@ -1,18 +1,28 @@
 .md-input-container-main {
 	width: 25%
 }
- 
+
+.md-list-categories {
+	margin: 0px 6px;
+	background:white;
+	padding-top: 0px
+}
  .md-list-item-category {
  	border-top-width: 1px;
  	border-top-style: solid;
  	border-color: rgba(0,0,0,0.12)
  }
- 
+
  .a-category {
  	text-decoration: none
  }
- 
+
  .text-category {
  	font-weight: normal;
  	color: gray
+ }
+
+ .button-container{
+	 background:#F3F3F3;
+	 margin: -33px 0px 8px;
  }

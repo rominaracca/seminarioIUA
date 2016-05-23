@@ -1,6 +1,6 @@
 
- <div layout="row" layout-align="center center" style="padding-top: 20px;">
- 	<md-input-container md-no-float class="md-icon-float md-icon-right md-input-container-main">
+ <div layout="row" layout-align="center center" style="padding-top: 20px; background:#F3F3F3">
+ 	<md-input-container md-no-float class="md-icon-float md-icon-right md-input-container-main" flex="40" flex-offset="15">
     	<input type="text" placeholder="Buscar productos" ng-model="vm.searchText" style="width: 70%; margin-top: 12px;">
     		<md-button ng-click="vm.searchProducts(vm.searchText)">
         		<md-icon class="material-icons" aria-label="Buscar" >search</md-icon>
@@ -13,13 +13,12 @@
 
 
 	<!-- Panel izquierdo -->
-	<div flex="15">
-
-		<div layout="row" layout-align="center center">
-			<md-button class="md-raised md-primary" ng-click="vm.adminCategory($event)">Administrar categoria</md-button>
+	<div flex="15" style="background:#F3F3F3;padding-bottom: 15px;">
+		<div layout="row" layout-align="center center" class="button-container">
+			<md-button class="md-raised md-primary" ng-click="vm.adminCategory($event)">Gestionar categorias</md-button>
 		</div>
-		<md-list>
-			<md-list-item class="md-list-item-category">
+		<md-list class="md-whiteframe-4dp md-list-categories">
+			<md-list-item class="md-list-item-category" >
 			      <a ui-sref="main.product({category:null, query:null})" class="a-category">
 			      	<h3 class="text-category">Todos los productos</h3>
 			      </a>
@@ -34,7 +33,7 @@
 	</div>
 
 	<!-- Panel central - Productos -->
-	<div flex="85">
+	<div flex="85" style="background:#F3F3F3">
 		<div ui-view style="height: 100%; width: 100%;"></div>
 	</div>
 
