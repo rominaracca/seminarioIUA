@@ -1,22 +1,25 @@
 <md-content class="md-padding background-gray " layout="row" layout-align='start start' layout-wrap>
-    <md-card ng-repeat="product in vm.products" flex="auto" >
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">{{product.description}}</span>
-          <span class="md-subhead">{{product.category.description}}</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="">Editar</md-button>
-        <md-button ng-click="">Eliminar</md-button>
-      </md-card-actions>
-    </md-card>
+  <md-card ng-repeat="product in vm.products" flex="auto" >
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{product.description}}</span>
+        <span class="md-subhead">{{product.category.description}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-click="" class="md-icon-button launch" >
+        <md-icon md-font-set="material-icons">mode_edit</md-icon>
+      </md-button>
+      <md-button ng-click="" class="md-icon-button launch" >
+        <md-icon md-font-set="material-icons">delete</md-icon>
+      </md-button>
+    </md-card-actions>
+  </md-card>
 
   <md-button class="md-fab floating-button" aria-label="Crear tarea">
-      <md-tooltip md-direction="left">
-          Crear producto
-        </md-tooltip>
-      <md-icon md-font-set="material-icons">create</md-icon>
+    <md-tooltip md-direction="left">
+      Crear producto
+    </md-tooltip>
+    <md-icon md-font-set="material-icons">add</md-icon>
   </md-button>
-
 </md-content>

@@ -1,0 +1,8 @@
+md-card .md-icon-button {
+  opacity:0;
+  transition:opacity 0.28s ease;
+}
+
+md-card:hover .md-icon-button {
+  opacity: 0.81;
+}

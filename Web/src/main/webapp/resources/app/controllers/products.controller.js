@@ -93,7 +93,7 @@
 		}
 
 		function searchProducts(query) {
-			productsService.search($scope.opt.searchText)
+			productsService.search(query)
 				.then(
 					function(resp){
 						console.log(resp);
