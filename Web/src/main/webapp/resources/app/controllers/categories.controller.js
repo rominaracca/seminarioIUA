@@ -136,8 +136,8 @@
                  targetEvent: ev,
                  clickOutsideToClose: false
                })
-               .then(function() {
-            	   //activate();
+               .then(null ,function() {
+            	   activate();
                 });
         };
 
