@@ -10,17 +10,14 @@
 
 		var vm = this;
 		vm.products = [];
-		vm.productTmp = {};
-		vm.editProduct = editProduct;
-		vm.addProduct = addProduct;
 		vm.confirmDelete = confirmDelete;
 		vm.createProductDialog = createProductDialog;
+		vm.editProductDialog = editProductDialog;
 		activate();
 
 		/////////////////////////////////////
 
 		function activate() {
-			console.log("cargando prod");
 			if(params.category === null){
 				productsService.list(params.query)
 				.then(
@@ -28,8 +25,11 @@
 						vm.products = resp.data;
 					},
 					function(respErr){
-						console.log(respErr);
-						//TODO toast msg
+						toast.show(
+							toast.simple({position:"top right"})
+							.textContent('Fallo de conexión')
+							.hideDelay(3000)
+						);
 					}
 				);
 			}
@@ -37,12 +37,14 @@
 				categoriesService.getProducts(params.category)
 				.then(
 					function(resp){
-						console.log(resp);
 						vm.products = resp.data;
 					},
 					function(respErr){
-						console.log(respErr);
-						//TODO toast msg
+						toast.show(
+							toast.simple({position:"top right"})
+							.textContent('Fallo de conexión')
+							.hideDelay(3000)
+						);
 					}
 				);
 			}
@@ -70,38 +72,12 @@
 			);
 		}
 
-		function editProduct() {
-			productsService.update(vm.productTmp)
-			.then(
-				function(resp){
-					console.log(resp);
-					// TODO: update in array
-				},
-				function(respErr){
-					console.log(respErr);
-				}
-			);
-		}
-
-		function addProduct() {
-			productsService.add(vm.productTmp)
-			.then(
-				function(resp){
-					console.log(resp);
-					// TODO: agregar al arreglo
-				},
-				function(respErr){
-					console.log(respErr);
-				}
-			);
-		}
-
 		function findInArrayProducts(id){
-			vm.products.forEach(function(val, index){
-				if(val.id === id){
-					return index;
+			for (var i = 0; i < vm.products.length; i++) {
+				if(vm.products[i].id === id){
+					return i;
 				}
-			});
+			}
 		}
 
 		function confirmDelete(ev, prod) {
@@ -141,6 +117,40 @@
 							toast.show(
 								toast.simple({position:"top right"})
 								.textContent('Error al crear el producto')
+								.hideDelay(3000)
+							);
+						}
+					);
+			});
+		}
+
+		function editProductDialog(ev, product) {
+			dialog.show({
+				controller: 'editProductController',
+				controllerAs: "vm",
+				locals:{
+					product:product
+				},
+				templateUrl: 'app/views/edit.product.modal.html',
+				targetEvent: ev,
+				clickOutsideToClose: false,
+			})
+			.then(function(product) {
+				productsService.update(product)
+					.then(
+						function (resp) {
+							toast.show(
+								toast.simple({position:"top right"})
+								.textContent('Producto actualizado')
+								.hideDelay(3000)
+							);
+							var index = findInArrayProducts(product.id);
+							vm.products.splice(index, 1, product);
+						},
+						function (resp) {
+							toast.show(
+								toast.simple({position:"top right"})
+								.textContent('Error al actualizar el producto')
 								.hideDelay(3000)
 							);
 						}

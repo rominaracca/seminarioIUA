@@ -18,10 +18,6 @@
 
 			////////////////////////////////
 
-  		// function list(){
-  		// 	return http.get(URL_API_PRODUCT);
-  		// }
-
 			function list(query){
         if(query)
 			    return http.get(URL_API_PRODUCT + '?description='+query);
@@ -33,8 +29,8 @@
 				return http.post(URL_API_PRODUCT, product);
 			}
 
-		 	function update(product){ // FIXME: agregar id
-				return http.put(URL_API_PRODUCT + '/' + id, product);
+		 	function update(product){
+				return http.put(URL_API_PRODUCT + '/' + product.id, product);
 			}
 
 		 	function remove(id){
