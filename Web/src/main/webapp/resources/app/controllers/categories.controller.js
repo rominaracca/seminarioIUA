@@ -100,11 +100,11 @@
 			 			);
 			 };
 			 
-			 function saveUpdateCategory(index, desc){
+			 function saveUpdateCategory(id, desc){
 				var cUp = {
 				          description: desc
 				        }
-				 categoriesService.update(index+1, cUp)
+				 categoriesService.update(id, cUp)
 				 	.then(
 				 			function(resp){
 				 				toast.show(

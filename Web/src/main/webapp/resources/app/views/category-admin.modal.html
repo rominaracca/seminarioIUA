@@ -28,7 +28,7 @@
 		  			<span>Editar categorias existentes</span>
 	      			<md-input-container md-no-float class="md-block" ng-repeat="category in vm.categories">
 	      				<input flex="70" style="margin-top: 10px;" ng-model="category.description" type="text" placeholder="Categoria">
-	      				<md-button ng-click="vm.saveUpdateCategory($index, category.description)" style="margin-right:20px;"> Guardar </md-button>
+	      				<md-button ng-click="vm.saveUpdateCategory(category.id, category.description)" style="margin-right:20px;"> Guardar </md-button>
 	    			</md-input-container>
 	    		
 		        </md-content>
