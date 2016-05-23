@@ -4,9 +4,9 @@
 		.module('seminario')
 		.controller('ProductCtrl', productsController);
 
-	productsController.$inject = ['productsService', '$stateParams'];
+	productsController.$inject = ['productsService', 'categoriesService', '$stateParams'];
 
-	function productsController(productsService, params) {
+	function productsController(productsService, categoriesService, params) {
 
 		console.log(params);
 		var vm = this;
@@ -23,17 +23,33 @@
 		/////////////////////////////////////
 
 		function activate() {
-			productsService.list()
-			.then(
-				function(resp){
-					console.log(resp);
-					vm.products = resp.data;
-				},
-				function(respErr){
-					console.log(respErr);
-					//TODO toast msg
-				}
-			);
+			if(params.category === null){
+				productsService.list()
+				.then(
+					function(resp){
+						console.log(resp);
+						vm.products = resp.data;
+					},
+					function(respErr){
+						console.log(respErr);
+						//TODO toast msg
+					}
+				);
+			}
+			else {
+				console.log(params.category);
+				categoriesService.getProducts(params.category)
+				.then(
+					function(resp){
+						console.log(resp);
+						vm.products = resp.data;
+					},
+					function(respErr){
+						console.log(respErr);
+						//TODO toast msg
+					}
+				);
+			}
 		}
 
 		function removeProduct(id) {

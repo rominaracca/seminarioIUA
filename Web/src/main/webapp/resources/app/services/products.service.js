@@ -20,24 +20,23 @@
 			////////////////////////////////
 
   		function list(){
-				console.log("heeey");
   			return http.get(URL_API_PRODUCT);
   		}
 
 			function search(query){
-				return $http.get(URL_API_PRODUCT + '?description='+query);
+				return http.get(URL_API_PRODUCT + '?description='+query);
 			}
 
 			function add(product){
-				return $http.post(URL_API_PRODUCT + '/', product);
+				return http.post(URL_API_PRODUCT + '/', product);
 			}
 
-		 	function update(product){
-				return $http.put(URL_API_PRODUCT + '/' + id, product);
+		 	function update(product){ // FIXME: agregar id
+				return http.put(URL_API_PRODUCT + '/' + id, product);
 			}
 
 		 	function remove(id){
-				return $http.delete(URL_API_PRODUCT + '/' + id);
+				return http.delete(URL_API_PRODUCT + '/' + id);
 			}
   	}
 })();
