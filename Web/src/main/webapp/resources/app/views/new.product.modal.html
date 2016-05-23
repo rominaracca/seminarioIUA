@@ -1,11 +1,11 @@
-<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+<md-dialog ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Nuevo producto</h2>
         <span flex></span>
       </div>
     </md-toolbar>
-    <form name="vm.newForm">
+    <form name="vm.newForm" ng-submit="vm.submit()">
     <md-dialog-content>
       <div class="md-dialog-content">
           <div layout-gt-sm="row">
@@ -63,10 +63,10 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="vm.answer('not useful')">
+      <md-button type="button" ng-click="vm.cancel()">
        Cancelar
       </md-button>
-      <md-button ng-click="vm.answer('useful')" style="margin-right:20px;">
+      <md-button type="submit" style="margin-right:20px;">
         Guardar
       </md-button>
     </md-dialog-actions>
