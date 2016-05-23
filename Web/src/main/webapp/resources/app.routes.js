@@ -3,7 +3,7 @@ angular
 	.config(function ($stateProvider, $urlRouterProvider) {
 
     // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise("/main.product");
+    $urlRouterProvider.otherwise("/main/product");
 
     // Set up the states
     $stateProvider
