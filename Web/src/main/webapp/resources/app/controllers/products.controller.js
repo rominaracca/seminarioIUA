@@ -14,12 +14,13 @@
 		vm.editProduct = editProduct;
 		vm.addProduct = addProduct;
 		vm.confirmDelete = confirmDelete;
-
+		vm.createProductDialog = createProductDialog;
 		activate();
 
 		/////////////////////////////////////
 
 		function activate() {
+			console.log("cargando prod");
 			if(params.category === null){
 				productsService.list(params.query)
 				.then(
@@ -115,6 +116,78 @@
 				removeProduct(prod.id);
 			}, function() {
 			});
+		}
+
+		function createProductDialog(ev) {
+			dialog.show({
+				controller: newProductCtrl,
+				controllerAs: "vm",
+				templateUrl: 'app/views/new.product.modal.html',
+				targetEvent: ev,
+				clickOutsideToClose: false,
+			})
+			.then(function(answer) {
+				console.log(answer);
+			}, function() {
+				console.log("cancelado");
+			});
+		}
+
+		newProductCtrl.$inject = ['$mdDialog', 'categoriesService'];
+		function newProductCtrl(dialog, categoriesService) {
+
+			var vm = this;
+
+			vm.product = {};
+			vm.separator = []; //whitespace code
+			vm.autocomplete = "";
+			vm.categories = [];
+
+			vm.hide = hide;
+			vm.cancel = cancel;
+			vm.answer = answer;
+			vm.querySearch = querySearch;
+
+			activate();
+
+			/////////////////////////////////////////
+
+			function activate() {
+				vm.product = {
+					tags: [],
+					category: ""
+				};
+				vm.separator.push(32);
+				categoriesService.list()
+					.then(
+							function(resp){
+								vm.categories = resp.data;
+							}
+					);
+			}
+
+			function querySearch (query) {
+				var results = query ? vm.categories.filter( createFilterFor(query) ) : [];
+				return results;
+			}
+
+			function createFilterFor(query) {
+				var lowercaseQuery = angular.lowercase(query);
+				return function filterFn(category) {
+					return (angular.lowercase(category.description).indexOf(lowercaseQuery) === 0);
+				};
+			}
+
+			function hide() {
+				dialog.hide();
+			}
+			function cancel() {
+				dialog.cancel();
+			}
+			function answer(answer) {
+				dialog.hide(answer);
+			}
+
 		}
 	}
 }());

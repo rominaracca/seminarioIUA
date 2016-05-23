@@ -1,0 +1,60 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Nuevo producto</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form name="newForm">
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Nombre</label>
+              <input ng-model="vm.product.user.firstName">
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Precio</label>
+              <input ng-model="vm.product.user.city">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Codigo</label>
+              <input ng-model="vm.product.user.city">
+            </md-input-container>
+          </div>
+          <md-autocomplete flex required
+                      md-input-name="autocompleteField"
+                      md-selected-item="vm.product.category"
+                      md-search-text="vm.autocomplete"
+                      md-items="category in vm.querySearch(vm.autocomplete)"
+                      md-item-text="category.description"
+                      md-floating-label="Categoría">
+                    <md-item-template>
+                      <span md-highlight-text="vm.autocomplete">{{category.description}}</span>
+                    </md-item-template>
+                    <div ng-messages="newForm.autocompleteField.$error" ng-if="newForm.autocompleteField.$touched">
+                      <div ng-message="required">Debe seleccionar una categoría.</div>
+                    </div>
+                  </md-autocomplete>
+            <md-chips
+                  ng-model="vm.product.tags"
+                  placeholder="Tags del producto"
+                  md-separator-keys="vm.separator"
+                  secondary-placeholder="Agregar tag"></md-chips>
+        </form>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="vm.answer('not useful')">
+       Cancelar
+      </md-button>
+      <md-button ng-click="vm.answer('useful')" style="margin-right:20px;">
+        Guardar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
