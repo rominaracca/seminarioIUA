@@ -3,7 +3,33 @@
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">{{product.description}}</span>
-        <span class="md-subhead">{{product.category.description}}</span>
+        <span class="md-subhead">
+          <md-icon md-font-set="material-icons">bookmark</md-icon>
+          {{product.category.description}}
+           <md-tooltip md-direction="left" md-delay="500">
+              Categoría
+            </md-tooltip>
+        </span>
+        <span class="md-subhead">
+          <md-icon md-font-set="material-icons">code</md-icon>
+          {{product.code}}
+           <md-tooltip md-direction="left" md-delay="500">
+              Código
+            </md-tooltip>
+        </span>
+        <span class="md-subhead">
+          <md-icon md-font-set="material-icons">attach_money</md-icon>
+          {{product.price | currency:""}}
+           <md-tooltip md-direction="left" md-delay="500">
+              Precio
+            </md-tooltip>
+        </span>
+        <md-chips ng-repeat="tag in product.tags">
+          <md-chip>
+            {{tag}}
+          </md-chip>
+        </md-chips>
+
       </md-card-title-text>
     </md-card-title>
     <md-card-actions layout="row" layout-align="end center">
