@@ -18,6 +18,7 @@
         vm.searchProducts = searchProducts;
         vm.adminCategory = adminCategory;
         
+        
         activate();
 
         function activate() {
@@ -40,14 +41,50 @@
 		};
         
 		
-		
-		function dialogController ($mdDialog){
+		dialogController.$inject = ['$mdDialog', 'categoriesService'];
+		function dialogController ($mdDialog, categoriesService){
 			 var vm = this;
 			
+			 vm.categories = [];
+			 vm.newcategory = "";
+			 
 			 vm.cancelDialog = function(){
-				 console.log("cerrar");
 		    	  $mdDialog.cancel();
 			 };
+			 
+			 vm.saveUpdateCategory = function(value){
+				 console.log(value);
+			 };
+			 
+			 vm.saveNewCategory = function(){
+				 //console.log(vm.newCategory);
+				 var c = "{description: "+vm.newCategory+"}";
+				 console.log(c);
+				 categoriesService.add(c);
+				 /*
+				 .then(
+				 			function(resp){
+				 				console.log(resp.data);
+				 			},
+				 			function(respErr){
+				 				$log.log(respErr);
+				 			}	
+			 			);
+			 		*/	
+			 }
+			 
+			 categoriesService.list()
+	        	.then(
+	        			function(resp){
+	        				$log.log(resp);
+	        				console.log(resp.data);
+	        				vm.categories = resp.data;
+	        			},
+	        			function(respErr){
+	        				$log.log(respErr);
+	        			}
+	        	);
+			 
 	   };
 		
 		

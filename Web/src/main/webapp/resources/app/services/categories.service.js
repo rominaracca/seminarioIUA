@@ -11,7 +11,8 @@
 
     	var factory = {
     			list: list,
-    			getProducts: getProducts
+    			getProducts: getProducts,
+    			add: add
     	};
 
     	return factory;
@@ -23,6 +24,14 @@
     	function getProducts(id){
     		return http.get(URL_API_CATEGORY + '/' + id + '/products');
     	}
+    	
+    	function update(id, category){
+    		return http.put(URL_API_CATEGORY + '/' + id, category);
+  		}
 
+    	function add(category){
+			return http.post(URL_API_CATEGORY, category);
+		}
+    	
     }
 })();

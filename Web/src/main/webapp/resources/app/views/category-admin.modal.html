@@ -1,4 +1,4 @@
-<md-dialog aria-label="Administrar categoria" ng-cloak>
+<md-dialog aria-label="Administrar categoria" ng-cloak style="min-width: 50%; min-height: 50%;">
  	<form>
    
     <md-toolbar>
@@ -12,21 +12,41 @@
     </md-toolbar>
    
     <md-dialog-content>
-      <div class="md-dialog-content">
-      
-      Contenido para editra y eliminar y crear una categoria
-      
-      </div>
-       </md-dialog-content>
+     	<md-tabs md-dynamic-height md-border-bottom>
+     	
+	        <md-tab label="Nuevo">
+	        <md-content class="md-padding">
+	  			
+	  			<span>Ingrese el nombre de la nueva categoria a crear</span>
+	      		<md-input-container md-no-float class="md-block">
+	      			<input ng-model="vm.newCategory" type="text" placeholder="Categoria">
+	    		</md-input-container>
+	        </md-content>
+	       </md-tab>
+	      
+	       <md-tab label="Editar">
+		        <md-content class="md-padding">
+		  			<span>Editar categorias existentes</span>
+		      		<md-input-container md-no-float class="md-block" ng-repeat="category in vm.categories">
+		      			<input ng-model="category.description" type="text" placeholder="Categoria">
+		    		</md-input-container>
+		        </md-content>
+	       </md-tab>
+	       
+		</md-tabs>
+	</md-dialog-content>
+	
     <md-dialog-actions layout="row">
+    
     
       <md-button ng-click="vm.cancelDialog()">
        Cancelar
       </md-button>
-      <md-button ng-click="answer('useful')" style="margin-right:20px;">
+      <md-button ng-click="vm.saveNewCategory(vm.newCategory)" style="margin-right:20px;">
         Aceptar
       </md-button>
     </md-dialog-actions>
+   
    
     </form>
 </md-dialog>
