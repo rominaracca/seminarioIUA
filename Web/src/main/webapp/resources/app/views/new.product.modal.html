@@ -1,28 +1,43 @@
 <md-dialog aria-label="Mango (Fruit)"  ng-cloak>
-  <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Nuevo producto</h2>
         <span flex></span>
       </div>
     </md-toolbar>
+    <form name="vm.newForm">
     <md-dialog-content>
       <div class="md-dialog-content">
-        <form name="newForm">
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
               <label>Nombre</label>
-              <input ng-model="vm.product.user.firstName">
+              <input ng-model="vm.product.description"
+                ng-maxlength="30"
+                name='description'
+                required>
+              <div ng-messages="vm.newForm.description.$error">
+                <div ng-message="required">Ingrese un nombre.</div>
+                <div ng-message="maxlength">Nombre demasiado largo. No exceder los 30 caracteres.</div>
+              </div>
             </md-input-container>
           </div>
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
               <label>Precio</label>
-              <input ng-model="vm.product.user.city">
+              <input ng-model="vm.product.price"
+                name='price'
+                required
+                money>
+              <div ng-messages="vm.newForm.price.$error">
+                <div ng-message="required">Ingrese un precio.</div>
+              </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
               <label>Codigo</label>
-              <input ng-model="vm.product.user.city">
+              <input ng-model="vm.product.code" name='code' required>
+              <div ng-messages="vm.newForm.code.$error">
+                <div ng-message="required">Ingrese un código.</div>
+              </div>
             </md-input-container>
           </div>
           <md-autocomplete flex required
@@ -35,8 +50,8 @@
                     <md-item-template>
                       <span md-highlight-text="vm.autocomplete">{{category.description}}</span>
                     </md-item-template>
-                    <div ng-messages="newForm.autocompleteField.$error" ng-if="newForm.autocompleteField.$touched">
-                      <div ng-message="required">Debe seleccionar una categoría.</div>
+                    <div ng-messages="vm.newForm.autocompleteField.$error" ng-if="vm.newForm.autocompleteField.$touched">
+                      <div ng-message="required">Ingrese una categoría.</div>
                     </div>
                   </md-autocomplete>
             <md-chips
@@ -44,7 +59,6 @@
                   placeholder="Tags del producto"
                   md-separator-keys="vm.separator"
                   secondary-placeholder="Agregar tag"></md-chips>
-        </form>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
