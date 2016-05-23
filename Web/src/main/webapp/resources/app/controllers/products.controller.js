@@ -125,12 +125,27 @@
 				targetEvent: ev,
 				clickOutsideToClose: false,
 			})
-			.then(function(answer) {
-				console.log(answer);
-			}, function() {
-				console.log("cancelado");
+			.then(function(product) {
+				productsService.create(product)
+					.then(
+						function (resp) {
+							toast.show(
+								toast.simple({position:"top right"})
+								.textContent('Producto creado')
+								.hideDelay(3000)
+							);
+							window.scrollTo(0, 0);
+							vm.products.unshift(resp.data);
+						},
+						function (resp) {
+							toast.show(
+								toast.simple({position:"top right"})
+								.textContent('Error al crear el producto')
+								.hideDelay(3000)
+							);
+						}
+					);
 			});
 		}
-
 	}
 }());

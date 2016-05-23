@@ -30,7 +30,7 @@
 			}
 
 			function add(product){
-				return http.post(URL_API_PRODUCT + '/', product);
+				return http.post(URL_API_PRODUCT, product);
 			}
 
 		 	function update(product){ // FIXME: agregar id
