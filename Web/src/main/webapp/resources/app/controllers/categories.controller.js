@@ -22,7 +22,6 @@
         activate();
 
         function activate() {
-
         	categoriesService.list()
 	        	.then(
 	        			function(resp){
@@ -40,9 +39,12 @@
         	state.go('main.product', {query: query});
 		};
 
+		
 
-		dialogController.$inject = ['$mdDialog', 'categoriesService'];
-		function dialogController ($mdDialog, categoriesService){
+		/**************************** DIALOGO CONTROLADOR ************************************/
+		
+		dialogController.$inject = ['$mdDialog', 'categoriesService', '$mdToast'];
+		function dialogController ($mdDialog, categoriesService, toast){
 			 var vm = this;
 
 			 vm.categories = [];
@@ -59,8 +61,6 @@
 	        	 categoriesService.list()
 		        	.then(
 		        			function(resp){
-		        				$log.log(resp);
-		        				console.log(resp.data);
 		        				vm.categories = resp.data;
 		        			},
 		        			function(respErr){
@@ -81,10 +81,20 @@
 				 categoriesService.add(c)
 				 .then(
 				 			function(resp){
-				 				vm.categories.push(resp.data);
-				 				console.log(resp.data);
+				 				toast.show(
+										toast.simple({position:"top right"})
+										.textContent('Categoria creada')
+										.hideDelay(3000)
+									);
+								window.scrollTo(0, 0);
+				 				vm.categories.unshift(resp.data);
 				 			},
 				 			function(respErr){
+				 				toast.show(
+										toast.simple({position:"top right"})
+										.textContent('Error al crear la categoria')
+										.hideDelay(3000)
+									);
 				 				$log.log(respErr);
 				 			}
 			 			);
@@ -97,10 +107,19 @@
 				 categoriesService.update(index+1, cUp)
 				 	.then(
 				 			function(resp){
-				 				console.log(resp.data);
+				 				toast.show(
+										toast.simple({position:"top right"})
+										.textContent('Categoria actualizada')
+										.hideDelay(3000)
+									);
+								window.scrollTo(0, 0);
 				 			},
 				 			function(respErr){
-				 				console.log(respErr);
+				 				toast.show(
+										toast.simple({position:"top right"})
+										.textContent('Error al actualizar la categoria')
+										.hideDelay(3000)
+									);
 				 				$log.log(respErr);
 				 			}
 			 			);
