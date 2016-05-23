@@ -24,11 +24,20 @@
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
               <label>Precio</label>
-              <input ng-model="vm.product.price" required>
+              <input ng-model="vm.product.price"
+                name='price'
+                required
+                money>
+              <div ng-messages="vm.newForm.price.$error">
+                <div ng-message="required">Ingrese un precio.</div>
+              </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
               <label>Codigo</label>
-              <input ng-model="vm.product.code" required>
+              <input ng-model="vm.product.code" name='code' required>
+              <div ng-messages="vm.newForm.code.$error">
+                <div ng-message="required">Ingrese un código.</div>
+              </div>
             </md-input-container>
           </div>
           <md-autocomplete flex required
@@ -42,7 +51,7 @@
                       <span md-highlight-text="vm.autocomplete">{{category.description}}</span>
                     </md-item-template>
                     <div ng-messages="vm.newForm.autocompleteField.$error" ng-if="vm.newForm.autocompleteField.$touched">
-                      <div ng-message="required">Debe seleccionar una categoría.</div>
+                      <div ng-message="required">Ingrese una categoría.</div>
                     </div>
                   </md-autocomplete>
             <md-chips

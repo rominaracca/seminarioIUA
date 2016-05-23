@@ -10,6 +10,7 @@
     "angular": "^1.5.3",
     "angular-ui-router": "^0.2.18",
     "angular-material": "^1.0.7",
-    "angular-messages": "^1.5.5"
+    "angular-messages": "^1.5.5",
+    "angular-money-directive": "^1.2.5"
   }
 }
