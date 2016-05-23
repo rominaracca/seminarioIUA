@@ -16,7 +16,8 @@ angular
       .state('main.product', {
          url: '/product',
 				 params:{
-					 category: null
+					 category: null,
+					 query: null
 				 },
          templateUrl: 'app/views/products.views.html',
 		    controller: 'ProductCtrl',

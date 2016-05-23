@@ -1,8 +1,21 @@
+md-card{
+  max-width: 440px;
+}
+
 md-card .md-icon-button {
   opacity:0;
-  transition:opacity 0.28s ease;
+  -webkit-transition: opacity 0.28s ease;
+  -moz-transition: opacity 0.28s ease;
+  -o-transition: opacity 0.28s ease;
+  transition: opacity 0.28s ease;
 }
 
 md-card:hover .md-icon-button {
   opacity: 0.81;
+}
+
+.floating-button{
+  position: fixed!important;
+  bottom: 20px;
+  right: 20px;
 }

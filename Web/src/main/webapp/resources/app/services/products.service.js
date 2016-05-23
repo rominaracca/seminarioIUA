@@ -11,20 +11,22 @@
 				remove: remove,
 				update: update,
 				create: add,
-				list: list,
-				search: search
+				list: list
 			};
 
     	return factory;
 
 			////////////////////////////////
 
-  		function list(){
-  			return http.get(URL_API_PRODUCT);
-  		}
+  		// function list(){
+  		// 	return http.get(URL_API_PRODUCT);
+  		// }
 
-			function search(query){
-				return http.get(URL_API_PRODUCT + '?description='+query);
+			function list(query){
+        if(query)
+			    return http.get(URL_API_PRODUCT + '?description='+query);
+        else
+          return http.get(URL_API_PRODUCT);
 			}
 
 			function add(product){
