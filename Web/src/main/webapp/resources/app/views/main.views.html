@@ -14,6 +14,11 @@
 	<div flex="15">
 
 		<md-list>
+			<md-list-item style="border-top-width: 1px; border-top-style: solid; border-color: rgba(0,0,0,0.12);">
+			      <a ui-sref="main.product" style="text-decoration: none;"> <!-- Paso el id de la categoria -->
+			      	<h3 style="font-weight: normal; color: gray;">Todos los productos</h3>
+			      </a>
+	  		</md-list-item>
 	  		<md-list-item ng-repeat="category in vm.categories" style="border-top-width: 1px; border-top-style: solid; border-color: rgba(0,0,0,0.12);">
 			      <a ui-sref="main.product({category:category.id})" style="text-decoration: none;"> <!-- Paso el id de la categoria -->
 			      	<h3 style="font-weight: normal; color: gray;">{{category.description}}</h3>
