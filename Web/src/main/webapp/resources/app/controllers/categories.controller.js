@@ -134,10 +134,10 @@
                  controllerAs: 'vm',
                  templateUrl: 'app/views/category-admin.modal.html',
                  targetEvent: ev,
-                 clickOutsideToClose: true
+                 clickOutsideToClose: false
                })
-               .then(function(answer) {
-                  console.log(answer);
+               .then(function() {
+            	   //activate();
                 });
         };
 
