@@ -1,70 +1,67 @@
 <md-dialog ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Nuevo producto</h2>
-        <span flex></span>
-      </div>
-    </md-toolbar>
-    <form name="vm.newForm" ng-submit="vm.submit()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Nuevo producto</h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+  <form name="vm.newForm" ng-submit="vm.submit()">
     <md-dialog-content>
       <div class="md-dialog-content">
-          <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm>
-              <label>Nombre</label>
-              <input ng-model="vm.product.description"
-                ng-maxlength="30"
-                name='description'
-                required>
-              <div ng-messages="vm.newForm.description.$error">
-                <div ng-message="required">Ingrese un nombre.</div>
-                <div ng-message="maxlength">Nombre demasiado largo. No exceder los 30 caracteres.</div>
-              </div>
-            </md-input-container>
-          </div>
-          <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm>
-              <label>Precio</label>
-              <input ng-model="vm.product.price"
-                name='price'
-                required
-                money>
-              <div ng-messages="vm.newForm.price.$error">
-                <div ng-message="required">Ingrese un precio.</div>
-              </div>
-            </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm>
-              <label>Codigo</label>
-              <input ng-model="vm.product.code" name='code' required>
-              <div ng-messages="vm.newForm.code.$error">
-                <div ng-message="required">Ingrese un código.</div>
-              </div>
-            </md-input-container>
-          </div>
-          <md-autocomplete flex required
-                      md-input-name="autocompleteField"
-                      md-selected-item="vm.product.category"
-                      md-search-text="vm.autocomplete"
-                      md-items="category in vm.querySearch(vm.autocomplete)"
-                      md-item-text="category.description"
-                      md-floating-label="Categoría">
-                    <md-item-template>
-                      <span md-highlight-text="vm.autocomplete">{{category.description}}</span>
-                    </md-item-template>
-                    <div ng-messages="vm.newForm.autocompleteField.$error" ng-if="vm.newForm.autocompleteField.$touched">
-                      <div ng-message="required">Ingrese una categoría.</div>
-                    </div>
-                  </md-autocomplete>
-            <md-chips
-                  ng-model="vm.product.tags"
-                  placeholder="Tags del producto"
-                  md-separator-keys="vm.separator"
-                  secondary-placeholder="Agregar tag"></md-chips>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Nombre</label>
+            <input ng-model="vm.product.description"
+            ng-maxlength="30"
+            name='description'
+            required>
+            <div ng-messages="vm.newForm.description.$error">
+              <div ng-message="required">Ingrese un nombre.</div>
+              <div ng-message="maxlength">Nombre demasiado largo. No exceder los 30 caracteres.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Precio</label>
+            <input ng-model="vm.product.price"
+            name='price'
+            required
+            money>
+            <div ng-messages="vm.newForm.price.$error">
+              <div ng-message="required">Ingrese un precio.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Codigo</label>
+            <input ng-model="vm.product.code" name='code' required>
+            <div ng-messages="vm.newForm.code.$error">
+              <div ng-message="required">Ingrese un código.</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Categoría</label>
+            <md-select ng-model="vm.product.category" name="category" required>
+              <md-option ng-repeat="category in vm.categories" value="{{category}}">
+                {{category.description}}
+              </md-option>
+            </md-select>
+            <div ng-messages="vm.newForm.category.$error">
+              <div ng-message='required'>Ingrese una categoría.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <md-chips
+        ng-model="vm.product.tags"
+        placeholder="Tags del producto"
+        md-separator-keys="vm.separator"
+        secondary-placeholder="Agregar tag"></md-chips>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button type="button" ng-click="vm.cancel()">
-       Cancelar
+        Cancelar
       </md-button>
       <md-button type="submit" style="margin-right:20px;">
         Guardar

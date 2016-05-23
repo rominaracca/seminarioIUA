@@ -18,7 +18,6 @@
     vm.categories = [];
 
     vm.cancel = cancel;
-    vm.querySearch = querySearch;
     vm.submit = submit;
 
     activate();
@@ -27,6 +26,7 @@
 
     function activate() {
       angular.copy(product, vm.product);
+      vm.product.category = JSON.stringify(vm.product.category);
       vm.separator.push(32);//whitespace code
       vm.separator.push(9); //tab code
       categoriesService.list()
@@ -37,19 +37,12 @@
       );
     }
 
-    function querySearch (query) {
-      var results = query ? vm.categories.filter( createFilterFor(query) ) : [];
-      return results;
-    }
-
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(category) {
-        return (angular.lowercase(category.description).indexOf(lowercaseQuery) === 0);
-      };
-    }
-
     function submit() {
+      if(!vm.product.category){
+        vm.newForm.category.$touched = true;
+        return;
+      }
+      vm.product.category = JSON.parse(vm.product.category);
       dialog.hide(vm.product);
     }
 

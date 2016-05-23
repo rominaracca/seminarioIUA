@@ -17,7 +17,6 @@
     vm.categories = [];
 
     vm.cancel = cancel;
-    vm.querySearch = querySearch;
     vm.submit = submit;
 
     activate();
@@ -28,7 +27,7 @@
       vm.product = {
         description: "",
         tags: [],
-        category: "",
+        category: null,
         price: "",
         code: ""
       };
@@ -42,24 +41,18 @@
       );
     }
 
-    function querySearch (query) {
-      var results = query ? vm.categories.filter( createFilterFor(query) ) : [];
-      return results;
-    }
-
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(category) {
-        return (angular.lowercase(category.description).indexOf(lowercaseQuery) === 0);
-      };
-    }
-
     function submit() {
+      if(!vm.product.category){
+        vm.newForm.category.$touched = true;
+        return;
+      }
+      vm.product.category = JSON.parse(vm.product.category);
       dialog.hide(vm.product);
     }
 
     function cancel() {
       dialog.cancel();
     }
+
   }
 })();

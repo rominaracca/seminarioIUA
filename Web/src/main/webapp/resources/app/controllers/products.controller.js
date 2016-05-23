@@ -110,7 +110,6 @@
 								.textContent('Producto creado')
 								.hideDelay(3000)
 							);
-							window.scrollTo(0, 0);
 							vm.products.unshift(resp.data);
 						},
 						function (resp) {
@@ -145,7 +144,7 @@
 								.hideDelay(3000)
 							);
 							var index = findInArrayProducts(product.id);
-							vm.products.splice(index, 1, product);
+							vm.products[index] = product;
 						},
 						function (resp) {
 							toast.show(
