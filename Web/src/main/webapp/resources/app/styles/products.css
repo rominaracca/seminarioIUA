@@ -19,3 +19,17 @@ md-card:hover .md-icon-button {
   bottom: 20px;
   right: 20px;
 }
+
+.chips{
+  margin-top: 18px;
+}
+
+.chip{
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin-right: 5px;
+  color: white;
+  font-style: italic;
+  font-size: 9pt;
+  background: #848484;
+}

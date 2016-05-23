@@ -24,11 +24,11 @@
               Precio
             </md-tooltip>
         </span>
-        <md-chips ng-repeat="tag in product.tags">
-          <md-chip>
+        <div class="chips">
+          <span ng-repeat="tag in product.tags" class="chip">
             {{tag}}
-          </md-chip>
-        </md-chips>
+          </span>
+        </div>
 
       </md-card-title-text>
     </md-card-title>
