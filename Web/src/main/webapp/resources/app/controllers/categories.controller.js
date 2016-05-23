@@ -5,15 +5,17 @@
         .module('seminario')
         .controller('CategoryCtrl', CategoryCtrl);
 
-    CategoryCtrl.$inject = ['categoriesService', '$log'];
+    CategoryCtrl.$inject = ['categoriesService', '$log', '$state'];
 
     
     /* @ngInject */
-    function CategoryCtrl(categoriesService, $log) {
+    function CategoryCtrl(categoriesService, $log, state) {
         var vm = this;
 
         vm.categories = [];
-        //vm.seleccionarTarea = seleccionarTarea;
+        vm.searchText = "";
+        
+        vm.searchProducts = searchProducts;
 
         activate();
 
@@ -22,7 +24,7 @@
         	categoriesService.list()
 	        	.then(
 	        			function(resp){
-	        				console.log(resp.data);
+	        				//console.log(resp.data);
 	        				$log.log(resp);
 	        				vm.categories = resp.data;
 	        			},
@@ -30,16 +32,12 @@
 	        				$log.log(respErr);
 	        			}
 	        	);
-        	
-
         }
 
-        /*
-        function seleccionarTarea(idSelectedNotification) {
-         
-        }
-         */
-
+        function searchProducts(query) {
+        	state.go('main.product', {query: query});
+		}
+        
     }
 })();
 
