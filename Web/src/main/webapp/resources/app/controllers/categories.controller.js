@@ -47,7 +47,6 @@
 
 			 vm.categories = [];
 			 vm.newcategory = "";
-			 //vm.updateCategory = "";
 			 
 			 vm.cancelDialog = cancelDialog;
 			 vm.saveNewCategory = saveNewCategory;
@@ -95,12 +94,13 @@
 				var cUp = {
 				          description: desc
 				        }
-				 categoriesService.update(index, cUp)
+				 categoriesService.update(index+1, cUp)
 				 	.then(
 				 			function(resp){
 				 				console.log(resp.data);
 				 			},
 				 			function(respErr){
+				 				console.log(respErr);
 				 				$log.log(respErr);
 				 			}
 			 			);
