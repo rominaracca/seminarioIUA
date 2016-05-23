@@ -47,25 +47,56 @@
 
 			 vm.categories = [];
 			 vm.newcategory = "";
+			 //vm.updateCategory = "";
+			 
+			 vm.cancelDialog = cancelDialog;
+			 vm.saveNewCategory = saveNewCategory;
+			 vm.saveUpdateCategory = saveUpdateCategory;
 
-			 vm.cancelDialog = function(){
-		    	  $mdDialog.cancel();
+			 activate();
+
+	        function activate() {
+	        	
+	        	 categoriesService.list()
+		        	.then(
+		        			function(resp){
+		        				$log.log(resp);
+		        				console.log(resp.data);
+		        				vm.categories = resp.data;
+		        			},
+		        			function(respErr){
+		        				$log.log(respErr);
+		        			}
+		        	);
+	        }
+		        
+			 function cancelDialog(){
+				 activate();
+		    	 $mdDialog.cancel();
 			 };
 
-			 vm.saveUpdateCategory = function(value){
-				 console.log(value);
-			 };
-
-			 vm.saveNewCategory = function(){
-				 console.log(vm.newCategory);
-				//  var c = "{description: "+vm.newCategory+"}";
-        var c = {
-          description: vm.newCategory
-        }
-				 console.log(c);
-				 categoriesService.add(c);
-				 /*
+			 function saveNewCategory(){
+		        var c = {
+		          description: vm.newCategory
+		        }
+				 categoriesService.add(c)
 				 .then(
+				 			function(resp){
+				 				vm.categories.push(resp.data);
+				 				console.log(resp.data);
+				 			},
+				 			function(respErr){
+				 				$log.log(respErr);
+				 			}
+			 			);
+			 };
+			 
+			 function saveUpdateCategory(index, desc){
+				var cUp = {
+				          description: desc
+				        }
+				 categoriesService.update(index, cUp)
+				 	.then(
 				 			function(resp){
 				 				console.log(resp.data);
 				 			},
@@ -73,22 +104,9 @@
 				 				$log.log(respErr);
 				 			}
 			 			);
-			 		*/
-			 }
+			 };
 
-			 categoriesService.list()
-	        	.then(
-	        			function(resp){
-	        				$log.log(resp);
-	        				console.log(resp.data);
-	        				vm.categories = resp.data;
-	        			},
-	        			function(respErr){
-	        				$log.log(respErr);
-	        			}
-	        	);
-
-	   };
+		};
 
 
         function adminCategory(ev){

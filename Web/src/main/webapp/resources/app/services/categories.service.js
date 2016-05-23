@@ -12,7 +12,8 @@
     	var factory = {
     			list: list,
     			getProducts: getProducts,
-    			add: add
+    			add: add,
+    			update: update
     	};
 
     	return factory;
