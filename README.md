@@ -13,5 +13,5 @@ El stack tecnológico está compuesto de la siguiente manera:
   * Hibernate
   * Spring MVC
   * Swagger
-  * HTML, CSS, Java Script
+  * HTML, CSS, JavaScript
   * AngularJS
