@@ -66,16 +66,29 @@ public class CategoryDAOTest {
 		t1.add("Caoba");
 		p1.setTags(t1);
 		p1.setCategory(c);
+		
+		Product p2= new Product();
+		p2.setDescription("Silla resplado tapizado");
+		p2.setCode("SILLA_RT_001");
+		p2.setPrice(250.50);
+		List<String> t2 = new ArrayList<String>();
+		t2.add("Cedro");
+		p2.setTags(t2);
+		p2.setCategory(c);
 				
 		CategoryDAO cDAO = new CategoryDAO(sessionFactory);
 		ProductDAO pDAO = new ProductDAO(sessionFactory);
 				
 		try {
 	
+			int id = cDAO.save(c).getId();
 			pDAO.save(p1);
-			assertEquals(cDAO.listProducts(1).size(),1);
+			pDAO.save(p2);
+			assertEquals(cDAO.listProducts(id).size(),2);
 			
+			pDAO.delete(p2);
 			pDAO.delete(p1);
+			cDAO.delete(c);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();
