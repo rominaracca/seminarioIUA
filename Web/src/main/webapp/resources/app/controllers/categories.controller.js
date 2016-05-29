@@ -15,7 +15,7 @@
         vm.categories = [];
         vm.searchText = "";
         vm.categorySelected = {};
-        
+
         vm.searchProducts = searchProducts;
         vm.adminCategory = adminCategory;
         vm.isSelected = isSelected;
@@ -27,7 +27,6 @@
         	categoriesService.list()
 	        	.then(
 	        			function(resp){
-	        				//console.log(resp.data);
 	        				$log.log(resp);
 	        				vm.categories = resp.data;
 	        			},

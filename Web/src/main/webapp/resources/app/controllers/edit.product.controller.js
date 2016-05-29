@@ -10,7 +10,6 @@
   function editProductCtrl(dialog, categoriesService, product) {
 
     var vm = this;
-    console.log(product);
 
     vm.product = {};
     vm.separator = [];
