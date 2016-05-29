@@ -51,14 +51,14 @@ public class ProductDAOTest {
 	
 	
 	@Test
-	public void returnsProductsWithCategory() {
+	public void getProductsWithCategory() {
 		
 		// create the objects needed for testing
 		Category c= new Category();
 		c.setDescription("Muebles");
 		
 		Product p1= new Product();
-		p1.setDescription("Mesa extensible");
+		p1.setDescription("Mesa__extensible");
 		p1.setCode("MESA_EX_001");
 		p1.setPrice(600.50);
 		List<String> t1 = new ArrayList<String>();
@@ -74,11 +74,11 @@ public class ProductDAOTest {
 			cDAO.save(c);
 			pDAO.save(p1);
 		
-			assertEquals(pDAO.list("Mesa extensible").size(),1);
+			assertEquals(pDAO.list("Mesa__extensible").size(),1);
 			assertEquals(pDAO.listUniqueTags().size(), 2);
 			
 			pDAO.delete(p1);
-			assertEquals(pDAO.list().size(),0);
+			assertEquals(pDAO.list("Mesa__extensible").size(),0);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();
