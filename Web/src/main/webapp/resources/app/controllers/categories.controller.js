@@ -16,14 +16,15 @@
         vm.searchText = "";
         vm.indexSelectedCategory = null;		//indice de la categoria seleccionada, permite la aplicacion de estilos
 
-        
+
         vm.searchProducts = searchProducts;
         vm.adminCategory = adminCategory;
-       
+
         //Para estilos de categoria seleccionada
         vm.deselectedCategory = deselectedCategory;
         vm.isSelected = isSelected;
         vm.styleSelected = styleSelected;
+        vm.categorySelected = {};
 
         activate();
 
@@ -51,26 +52,26 @@
 			 vm.indexSelectedCategory = null;
 			 //$scope.selectedDoc = null;
 		}
-		
+
 		function isSelected(c){
-			console.log(c);
-			return "md-list-item-category";
+      vm.categorySelected = c;
+      state.go('main.product',{category:c.id});
 		}
-	     
-		function styleSelected($index){
-			return (vm.indexSelectedCategory == $index);
+
+		function styleSelected(c){
+			return (vm.categorySelected.id == c.id);
 		}
-		
+
 
 		/**************************** DIALOGO CONTROLADOR ************************************/
-		
+
 		dialogController.$inject = ['$mdDialog', 'categoriesService', '$mdToast'];
 		function dialogController ($mdDialog, categoriesService, toast){
 			 var vm = this;
 
 			 vm.categories = [];
 			 vm.newcategory = "";
-			 
+
 			 vm.cancelDialog = cancelDialog;
 			 vm.saveNewCategory = saveNewCategory;
 			 vm.saveUpdateCategory = saveUpdateCategory;
@@ -78,7 +79,7 @@
 			 activate();
 
 	        function activate() {
-	        	
+
 	        	 categoriesService.list()
 		        	.then(
 		        			function(resp){
@@ -89,7 +90,7 @@
 		        			}
 		        	);
 	        }
-		        
+
 			 function cancelDialog(){
 				 activate();
 		    	 $mdDialog.cancel();
@@ -120,7 +121,7 @@
 				 			}
 			 			);
 			 };
-			 
+
 			 function saveUpdateCategory(id, desc){
 				var cUp = {
 				          description: desc
