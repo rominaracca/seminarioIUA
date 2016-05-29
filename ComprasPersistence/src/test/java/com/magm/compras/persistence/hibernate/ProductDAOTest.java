@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import com.magm.compras.model.Category;
 import com.magm.compras.model.Product;
+import com.magm.core.exception.NotFoundException;
 import com.magm.core.persistence.exception.PersistenceException;
 
 
@@ -66,27 +67,22 @@ public class ProductDAOTest {
 		p1.setTags(t1);
 		p1.setCategory(c);
 				
-		Product p2= new Product();
-		p2.setDescription("Mesa rectangular");
-		p2.setCode("MESA_REC_001");
-		p2.setPrice(700.50);
-		List<String> t2 = new ArrayList<String>();
-		t2.add("Cedro");
-		p2.setTags(t2);
-		p2.setCategory(c);
-
 		CategoryDAO cDAO = new CategoryDAO(sessionFactory);
 		ProductDAO pDAO = new ProductDAO(sessionFactory);
 				
 		try {
 			cDAO.save(c);
 			pDAO.save(p1);
-			pDAO.save(p2);
+		
+			assertEquals(pDAO.list("Mesa extensible").size(),1);
+			assertEquals(pDAO.listUniqueTags().size(), 2);
 			
-			//assertEquals(pDAO.list("Mesa extensible").size(),1);
-			//assertEquals(pDAO.listUniqueTags().size(), 3);
-			assertEquals(1,1);
+			pDAO.delete(p1);
+			assertEquals(pDAO.list().size(),0);
+			
 		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} catch (NotFoundException e) {
 			e.printStackTrace();
 		}
 	
