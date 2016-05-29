@@ -18,16 +18,19 @@
 			<md-button class="md-raised md-primary" ng-click="vm.adminCategory($event)">Gestionar categorias</md-button>
 		</div>
 		<md-list class="md-whiteframe-4dp md-list-categories">
-			<md-list-item class="md-list-item-category" >
-			      <a ui-sref="main.product({category:null, query:null})" class="a-category">
-			      	<h3 class="text-category">Todos los productos</h3>
-			      </a>
-	  		</md-list-item>
-	  		<md-list-item ng-repeat="category in vm.categories" class="md-list-item-category">
-			      <a ui-sref="main.product({category:category.id})" class="a-category"> <!-- Paso el id de la categoria -->
+			
+			<md-list-item class="md-list-item-category">
+				<a ui-sref="main.product({category:null, query:null})" class="a-category">
+		      		<h3 class="text-category">Todos los productos</h3>
+		      	</a>
+  			</md-list-item>
+	  		
+	  		<md-list-item ng-repeat="category in vm.categories" class="md-list-item-category" ng-class="{'category-selectedvm' : styleSelected()}">
+	  			<a ui-sref="main.product({category:category.id})" ng-click="vm.isSelected(category)" class="a-category"> <!-- Paso el id de la categoria -->
 			      	<h3 class="text-category" >{{category.description}}</h3>
-			      </a>
+			    </a>
 	  		</md-list-item>
+	  		
 		</md-list>
 
 	</div>
