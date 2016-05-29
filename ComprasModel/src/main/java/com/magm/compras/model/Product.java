@@ -36,7 +36,7 @@ public class Product implements Serializable {
 	private double price;
 	private String code;
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "idCategory")
 	
 	private Category category;

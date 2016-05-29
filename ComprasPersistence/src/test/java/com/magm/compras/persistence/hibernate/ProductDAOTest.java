@@ -58,7 +58,7 @@ public class ProductDAOTest {
 		c.setDescription("Muebles");
 		
 		Product p1= new Product();
-		p1.setDescription("Mesa__extensible");
+		p1.setDescription("__Mesa extensible__");
 		p1.setCode("MESA_EX_001");
 		p1.setPrice(600.50);
 		List<String> t1 = new ArrayList<String>();
@@ -66,6 +66,16 @@ public class ProductDAOTest {
 		t1.add("Caoba");
 		p1.setTags(t1);
 		p1.setCategory(c);
+		
+		Product p2= new Product();
+		p2.setDescription("__Mesa no extensible__");
+		p2.setCode("MESA_EX_001");
+		p2.setPrice(600.50);
+		List<String> t2 = new ArrayList<String>();
+		t2.add("Roble");
+		t2.add("Cedro");
+		p2.setTags(t2);
+		p2.setCategory(c);
 				
 		CategoryDAO cDAO = new CategoryDAO(sessionFactory);
 		ProductDAO pDAO = new ProductDAO(sessionFactory);
@@ -73,11 +83,14 @@ public class ProductDAOTest {
 		try {
 			cDAO.save(c);
 			pDAO.save(p1);
+			pDAO.save(p2);
 		
-			assertEquals(pDAO.list("Mesa__extensible").size(),1);
-			assertEquals(pDAO.listUniqueTags().size(), 2);
+			assertEquals(pDAO.list("__Mesa extensible__").size(),1);
+			assertEquals(pDAO.listUniqueTags().size(), 4);
 			
+			pDAO.delete(p2);
 			pDAO.delete(p1);
+			cDAO.delete(c);
 			assertEquals(pDAO.list("Mesa__extensible").size(),0);
 			
 		} catch (PersistenceException e) {
