@@ -26,3 +26,10 @@
 	 background:#F3F3F3;
 	 margin: -33px 0px 8px;
  }
+
+ .products-container{
+	 height: 100%;
+	 width: 100%;
+	 overflow-x: none;
+	 overflow-y: auto;
+ }
