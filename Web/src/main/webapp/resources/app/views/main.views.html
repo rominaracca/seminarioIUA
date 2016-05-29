@@ -19,8 +19,8 @@
 		</div>
 		<md-list class="md-whiteframe-4dp md-list-categories">
 
-			<md-list-item class="md-list-item-category">
-				<a ui-sref="main.product({category:null, query:null})" class="a-category">
+			<md-list-item class="md-list-item-category" ng-class="{'category-selected' : vm.styleSelected(-1)}" ng-click="vm.isSelected(-1)">
+				<a class="a-category">  <!-- ui-sref="main.product({category:null, query:null})"  --> 
 		      		<h3 class="text-category">Todos los productos</h3>
 		      	</a>
   			</md-list-item>

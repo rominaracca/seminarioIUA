@@ -14,17 +14,12 @@
 
         vm.categories = [];
         vm.searchText = "";
-        vm.indexSelectedCategory = null;		//indice de la categoria seleccionada, permite la aplicacion de estilos
-
-
+        vm.categorySelected = {};
+        
         vm.searchProducts = searchProducts;
         vm.adminCategory = adminCategory;
-
-        //Para estilos de categoria seleccionada
-        vm.deselectedCategory = deselectedCategory;
         vm.isSelected = isSelected;
         vm.styleSelected = styleSelected;
-        vm.categorySelected = {};
 
         activate();
 
@@ -46,20 +41,17 @@
         	state.go('main.product', {query: query});
 		};
 
-
-		/****************************** SEELCCION DE CATEGORIA ******************************/
-		function deselectedCategory(){
-			 vm.indexSelectedCategory = null;
-			 //$scope.selectedDoc = null;
-		}
-
 		function isSelected(c){
-      vm.categorySelected = c;
-      state.go('main.product',{category:c.id});
+			vm.categorySelected = c;
+			if(c != -1 ){
+				state.go('main.product',{category:c.id});
+			} else {
+				state.go('main.product',{category:null, query:null});
+			}
 		}
 
 		function styleSelected(c){
-			return (vm.categorySelected.id == c.id);
+			return (vm.categorySelected.id == c.id || vm.categorySelected.id == -1);
 		}
 
 
