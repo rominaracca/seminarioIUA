@@ -54,7 +54,7 @@ public class ProductsRSController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> save(@RequestBody Product product) {
 		try {
-			return new ResponseEntity<Object>(productService.save(product), HttpStatus.OK);
+			return new ResponseEntity<Object>(productService.save(product), HttpStatus.CREATED);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
 			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -92,7 +92,7 @@ public class ProductsRSController {
 			Product p = new Product();
 			p.setId(id);
 			productService.delete(p);
-			return ResponseEntity.ok().body(null);
+			return new ResponseEntity<Object>(new SimpleResponse(204, ""), HttpStatus.NO_CONTENT);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
 			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);

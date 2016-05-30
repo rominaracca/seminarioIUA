@@ -67,7 +67,7 @@ public class CategoriesRSController {
 	public ResponseEntity<Object> save(@RequestBody Category Category) {
 		try {
 			System.out.println(Category);
-			return new ResponseEntity<Object>(categoryService.save(Category), HttpStatus.OK);
+			return new ResponseEntity<Object>(categoryService.save(Category), HttpStatus.CREATED);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
 			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,7 +104,7 @@ public class CategoriesRSController {
 			Category c = new Category();
 			c.setId(id);
 			categoryService.delete(c);
-			return ResponseEntity.ok().body(null);
+			return  new ResponseEntity<Object>(new SimpleResponse(204, ""), HttpStatus.NO_CONTENT);
 		} catch (ServiceException e) {
 			LOG.error(e.getMessage(), e);
 			return new ResponseEntity<Object>(new SimpleResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
