@@ -1,4 +1,4 @@
-<md-dialog aria-label="Administrar categoria" ng-cloak style="min-width: 50%; min-height: 50%;">
+<md-dialog aria-label="Administrar categoria" ng-cloak class="dialog-category">
  	<form>
 
     <md-toolbar>
@@ -13,27 +13,31 @@
 
     <md-dialog-content>
     
-	        <md-content class="md-padding">
+	        <md-content class="md-padding" layout="column" layout-align="space-around center">
 
-	  			<span>Ingrese el nombre de la nueva categoria a crear</span>
-	      		<div layout="row" layout-align="center center">
-	      		<md-input-container flex="70" md-no-float class="md-block" style="margin-bottom: 0px;">
-	      			<input ng-model="vm.newCategory" type="text" placeholder="Categoria">
-	    		</md-input-container>
-	    		  <md-button ng-click="vm.saveNewCategory()" style="margin-right:20px;">
-      				  Crear
-    			  </md-button>
+				<fieldset class="dc-fieldset">
+  					<legend>Nueva categoria</legend>
+	      			<div layout="row" layout-align="center center">
+	      				<md-input-container flex="70" md-no-float class="md-block" class="dc-input-container">
+	      					<input ng-model="vm.newCategory" type="text" placeholder="Nombre de categoria">
+	    				</md-input-container>
+	    				<md-button ng-click="vm.saveNewCategory()" class="dc-button">Crear</md-button>
     			  </div>
-    			  
-		  			<span>Editar categorias existentes</span>
-	      			<md-input-container md-no-float class="md-block" ng-repeat="category in vm.categories">
-	      				<input flex="70" style="margin-top: 10px;" ng-model="category.description" type="text" placeholder="Categoria">
-	      				<md-button ng-click="vm.saveUpdateCategory(category.id, category.description)" style="margin-right:20px;"> Guardar </md-button>
-	    			</md-input-container>
+ 				</fieldset>
+	  			<br/><br/>
+	  			<fieldset class="dc-fieldset" layout="column" layout-align="center center">
+	  				<legend>Editar categoria</legend>
+		  			<span layout="column" layout-align="center center" style="color:gray;">Edite la categoria y guarde</span>
+		  			<div layout="column" layout-align="center center">
+	      				<md-input-container md-no-float class="md-block" ng-repeat="category in vm.categories" style="width: 90%;">
+	      					<input flex="80" style="margin-top: 10px;" ng-model="category.description" type="text" placeholder="Categoria">
+	      					<md-button ng-click="vm.saveUpdateCategory(category.id, category.description)" class="dc-button"> Guardar </md-button>
+	    				</md-input-container>
+    				</div>
+				</fieldset>
 	    		
-		        </md-content>
-	 
-	</md-dialog-content>
+	        </md-content>
+	 	</md-dialog-content>
 
 
     </form>
