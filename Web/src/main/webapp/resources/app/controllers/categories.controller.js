@@ -14,7 +14,7 @@
 
         vm.categories = [];
         vm.searchText = "";
-        vm.categorySelected = {};
+        vm.categorySelected = -1;
 
         vm.searchProducts = searchProducts;
         vm.adminCategory = adminCategory;
@@ -151,6 +151,11 @@
                })
                .then(null ,function() {
             	   activate();
+                 if(vm.categorySelected != -1){
+                   state.go('main.product',{category:vm.categorySelected.id}, {reload: true});
+                 } else {
+                   state.go('main.product',{category:null, query:vm.searchText}, {reload: true});
+                 }
                 });
         };
 
