@@ -35,11 +35,11 @@ public class ProductDAOTest {
 				.addAnnotatedClass(Product.class)
 				.addAnnotatedClass(Category.class)
 				.setProperty("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect")
-				.setProperty("hibernate.show_sql", "true")
+				.setProperty("hibernate.show_sql", "false")
 				.setProperty("hibernate.format_sql", "true")
 				.setProperty("hibernate.hbm2ddl.auto", "update")
 				.setProperty("hibernate.enable_lazy_load_no_trans", "true")
-				.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/seminario?createDatabaseIfNotExist=true")
+				.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/seminarioCompras?createDatabaseIfNotExist=true")
 				.setProperty("hibernate.connection.username", "root")
 				.setProperty("hibernate.connection.password", "root")
 				.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
